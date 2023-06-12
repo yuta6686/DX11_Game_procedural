@@ -2,7 +2,9 @@
 
 
 
-
+#include "imgui.h"
+#include "imgui_impl_dx11.h"
+#include "imgui_impl_win32.h"
 
 // 頂点構造体
 struct VERTEX_3D
@@ -116,7 +118,19 @@ private:
 	static ID3D11DepthStencilState* m_DepthStateEnable;
 	static ID3D11DepthStencilState* m_DepthStateDisable;
 
+private:
+#ifdef _DEBUG
+	// Our state
+	inline static bool show_demo_window = true;
+	inline static bool show_another_window = false;
+	inline static bool show_hello_world = true;
+	inline static ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
+
+	// inlineは使えなかったら、C++のバージョンを上げるか、Renderer.cpp内で宣言し直してください。
+	// プロパティ/ 構成プロパティ /　全般　/C++言語標準 ->自分はC++17にしてます。
+
+#endif // _DEBUG
 public:
 	static void Init();
 	static void Uninit();
@@ -134,5 +148,8 @@ public:
 	static ID3D11Device* GetDevice( void ){ return m_D3DDevice; }
 	static ID3D11DeviceContext* GetDeviceContext( void ){ return m_ImmediateContext; }
 
-
+public:
+#ifdef _DEBUG
+	static void imguiDraw();
+#endif // _DEBUG
 };

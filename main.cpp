@@ -2,6 +2,7 @@
 
 #include "main.h"
 #include "manager.h"
+#include "renderer.h"
 
 
 const char* CLASS_NAME = "DX11AppClass";
@@ -98,6 +99,14 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 			{
 				dwExecLastTime = dwCurrentTime;
 
+				//	ImGui classを作る。
+//	static 関数にしてここで使う。
+
+// Start the Dear ImGui frame
+				ImGui_ImplDX11_NewFrame();
+				ImGui_ImplWin32_NewFrame();
+				ImGui::NewFrame();
+
 				// 更新処理
 				CManager::Update();
 
@@ -117,13 +126,16 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 	return (int)msg.wParam;
 }
-
+// Forward declare message handler from imgui_impl_win32.cpp
+extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 //=============================================================================
 // ウインドウプロシージャ
 //=============================================================================
 LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
+	if (ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam))
+		return true;
 
 	switch(uMsg)
 	{

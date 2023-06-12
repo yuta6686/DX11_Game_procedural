@@ -57,6 +57,10 @@ void CManager::Draw()
 
 	m_Scene->Draw();
 
+#ifdef _DEBUG
+	CRenderer::imguiDraw();
+#endif // _DEBUG
+
 	CRenderer::End();
 
 }
