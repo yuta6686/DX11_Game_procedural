@@ -54,5 +54,9 @@ public:
 	{
 	}
 
+	virtual void DrawImgui()
+	{
+
+	}
 
 };

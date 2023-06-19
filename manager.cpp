@@ -58,7 +58,15 @@ void CManager::Draw()
 	m_Scene->Draw();
 
 #ifdef _DEBUG
-	CRenderer::imguiDraw();
+	// CRenderer::imguiDraw();
+
+	const std::string window_name = "Imgui";
+	
+	ImGui::Begin(window_name.c_str(), &MyImgui::flags[window_name]);
+
+	m_Scene->DrawImgui();
+
+	ImGui::End();
 #endif // _DEBUG
 
 	CRenderer::End();

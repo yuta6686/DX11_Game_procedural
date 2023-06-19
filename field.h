@@ -27,6 +27,6 @@ public:
 	void Uninit();
 	void Update();
 	void Draw();
-
+	void DrawImgui();
 
 };
