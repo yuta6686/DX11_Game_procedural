@@ -22,6 +22,9 @@ private:
 
 	CShader*		m_Shader;
 
+	float m_Height = 20;
+	std::string m_Name = "Field";
+
 public:
 	void Init();
 	void Uninit();

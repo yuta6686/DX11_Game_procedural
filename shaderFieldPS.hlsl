@@ -14,6 +14,8 @@ cbuffer ConstatntBuffer : register(b0)
     matrix Projection;
 
     float4 CameraPosition;
+    float4 Parameter;
+    float4 HeightYZW;
 }
 
 float3 gradation(float param);
@@ -33,11 +35,11 @@ void main(in float4 inPosition : SV_POSITION,
     outDiffuse = g_Texture.Sample(g_SamplerState, inTexCoord);
     
     // 法線マッピング
-    float yx1 = fbm2(inTexCoord * 0.05 + float2(0.0001, 0.0), 6) * 20.0;
-    float yx2 = fbm2(inTexCoord * 0.05 - float2(0.0001, 0.0), 6) * 20.0;
+    float yx1 = fbm2(inTexCoord * 0.05 + float2(0.0001, 0.0), 6) * HeightYZW.x;
+    float yx2 = fbm2(inTexCoord * 0.05 - float2(0.0001, 0.0), 6) * HeightYZW.x;
     float3 vx = float3(0.01, yx2 - yx1, 0.0);
-    float yz1 = fbm2(inTexCoord * 0.05 + float2(0.0, 0.0001), 6) * 20.0;
-    float yz2 = fbm2(inTexCoord * 0.05 - float2(0.0, 0.0001), 6) * 20.0;
+    float yz1 = fbm2(inTexCoord * 0.05 + float2(0.0, 0.0001), 6) * HeightYZW.x;
+    float yz2 = fbm2(inTexCoord * 0.05 - float2(0.0, 0.0001), 6) * HeightYZW.x;
     float3 vz = float3(0.0, yz2 - yz1, 0.01);
     
     float3 normal = normalize(cross(vz, vx));

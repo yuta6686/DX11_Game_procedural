@@ -226,12 +226,26 @@ void CRenderer::Init()
 	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 
 	// Setup Dear ImGui style
-	ImGui::StyleColorsDark();
+	// ImGui::StyleColorsDark();
 	//ImGui::StyleColorsLight();
+
+	ImGui::StyleColorsClassic();
+
+	//	ゲージの色Progresbar
+	ImGui::PushStyleColor(ImGuiCol_PlotHistogram, ImVec4(0.0f, 1.0f, 220.0f / 250.0f, 1.0f));
+
+	//	ホバー色
+	ImGui::PushStyleColor(ImGuiCol_FrameBgHovered, ImVec4(0.3f, 0.85f, 0.875f, 0.4f));
+
+	ImGui::PushStyleColor(ImGuiCol_FrameBgActive, ImVec4(0.0f, 1.0f, 0.9f, 0.7f));
+
+	//  ウィンドウの角丸み->多分角度
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 15.0f);
 
 	ImGui_ImplWin32_Init(GetWindow());
 	ImGui_ImplDX11_Init(m_D3DDevice, m_ImmediateContext);
 
+	io.Fonts->AddFontFromFileTTF("imgui/misc/fonts/Roboto-Medium.ttf", 20);
 }
 
 

@@ -54,7 +54,7 @@ void CWater::Init()
 		
 
 
-	m_Position = XMFLOAT3( 0.0f, -8.0f, 0.0f );
+	m_Position = XMFLOAT3( 0.0f, -3.0f, 0.0f );
 	m_Rotation = XMFLOAT3( 0.0f, 0.0f, 0.0f );
 	m_Scale = XMFLOAT3( 1.0f, 1.0f, 1.0f );
 
@@ -65,8 +65,11 @@ void CWater::Init()
 
 
 
-	m_Time = 0.0f;
-
+	m_Parameter.x = 0.0f;
+	m_Parameter.y = 5.0f;
+	m_Parameter.z = 2.0f;
+	m_Parameter.w = 0.6f;
+	
 }
 
 
@@ -81,7 +84,7 @@ void CWater::Uninit()
 
 void CWater::Update()
 {
-	m_Time += 1.0f / 60.0f;
+	m_Parameter.x += 1.0f / 60.0f;
 
 }
 
@@ -113,7 +116,7 @@ void CWater::Draw()
 	m_Shader->SetProjectionMatrix(&camera->GetProjectionMatrix());
 	m_Shader->SetCameraPosition(&camera->GetPosition());
 
-	m_Shader->SetPrameter( XMFLOAT4(m_Time, 0.0f, 0.0f, 0.0f));
+	m_Shader->SetPrameter(m_Parameter);
 
 	m_Shader->Set();
 
@@ -125,4 +128,18 @@ void CWater::Draw()
 	// ƒ|ƒŠƒSƒ“•`‰æ
 	CRenderer::GetDeviceContext()->Draw( 4, 0 );
 
+}
+
+void CWater::DrawImgui()
+{
+	if (MyImgui::flags["Water"] == false)return;
+
+	if (ImGui::TreeNode("Water")) {
+
+		ImGui::DragFloat("y", &m_Parameter.y, 0.01f, -10, 10);
+		ImGui::DragFloat("z", &m_Parameter.z, 0.01f, -10, 10);
+		ImGui::DragFloat("w", &m_Parameter.w, 0.01f, 0, 1);
+
+		ImGui::TreePop();
+	}
 }

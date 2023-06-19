@@ -9,14 +9,14 @@ private:
 
 
 	CShader*		m_Shader;
-
-	float			m_Time;
+	
+	XMFLOAT4		m_Parameter;
 
 public:
 	void Init();
 	void Uninit();
 	void Update();
 	void Draw();
-
+	void DrawImgui();
 
 };
