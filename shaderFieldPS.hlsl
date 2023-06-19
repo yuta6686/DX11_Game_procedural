@@ -14,7 +14,11 @@ cbuffer ConstatntBuffer : register(b0)
     matrix Projection;
 
     float4 CameraPosition;
+    float4 Parameter;
+    float4 HeightYZW;
 }
+
+float3 gradation(float param);
 
 //=============================================================================
 // ピクセルシェーダ
@@ -31,15 +35,16 @@ void main(in float4 inPosition : SV_POSITION,
     outDiffuse = g_Texture.Sample(g_SamplerState, inTexCoord);
     
     // 法線マッピング
-    float yx1 = fbm2(inTexCoord * 0.05 + float2(0.0001, 0.0), 6) * 20.0;
-    float yx2 = fbm2(inTexCoord * 0.05 - float2(0.0001, 0.0), 6) * 20.0;
+    float yx1 = fbm2(inTexCoord * 0.05 + float2(0.0001, 0.0), 6) * HeightYZW.x;
+    float yx2 = fbm2(inTexCoord * 0.05 - float2(0.0001, 0.0), 6) * HeightYZW.x;
     float3 vx = float3(0.01, yx2 - yx1, 0.0);
-    float yz1 = fbm2(inTexCoord * 0.05 + float2(0.0, 0.0001), 6) * 20.0;
-    float yz2 = fbm2(inTexCoord * 0.05 - float2(0.0, 0.0001), 6) * 20.0;
+    float yz1 = fbm2(inTexCoord * 0.05 + float2(0.0, 0.0001), 6) * HeightYZW.x;
+    float yz2 = fbm2(inTexCoord * 0.05 - float2(0.0, 0.0001), 6) * HeightYZW.x;
     float3 vz = float3(0.0, yz2 - yz1, 0.01);
     
     float3 normal = normalize(cross(vz, vx));
     
+    outDiffuse.rgb = gradation(inWorldPosition.y / 4 + 1.0);
     
 		// ライティング
     float3 lightDir = normalize(float3(1.0, -1.0, 1.0));
@@ -48,4 +53,18 @@ void main(in float4 inPosition : SV_POSITION,
     outDiffuse.rgb *= light;    
     //outDiffuse.rgb = normal;
 
+}
+
+
+float3 gradation(float param)
+{
+    float3 color = float3(1.0f, 1.0f, 1.0f);
+    
+    float3 red = float3(0.5f, 0.5f, 0.0f);
+    float3 green = float3(0.0f, 1.0f, 0.0f);
+    float3 blue = float3(0.0f, 0.0f, 1.0f);
+    float3 white = float3(1.0f, 1.0f, 1.0f);
+    float3 black = float3(0.0f, 0.0f, 0.0f);          
+    
+    return lerp(lerp(blue, green, param / 2), lerp(green,red , param / 2), param);
 }

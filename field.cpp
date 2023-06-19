@@ -89,14 +89,13 @@ void CField::Init()
 
 
 
-	m_Position = XMFLOAT3( 0.0f, 0.0f, 0.0f );
-	m_Rotation = XMFLOAT3( 0.0f, 0.0f, 0.0f );
-	m_Scale = XMFLOAT3( 1.0f, 1.0f, 1.0f );
+	m_Position = XMFLOAT3(0.0f, 0.0f, 0.0f);
+	m_Rotation = XMFLOAT3(0.0f, 0.0f, 0.0f);
+	m_Scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
 
 
 	m_Shader = new CShader();
-	m_Shader->Init("shaderFieldVS.cso", "shaderFieldPS.cso");
-
+	m_Shader->Init("shaderFieldVS.cso", "shaderFieldPS.cso");	
 }
 
 
@@ -124,19 +123,19 @@ void CField::Draw()
 	// 頂点バッファ設定
 	UINT stride = sizeof(VERTEX_3D);
 	UINT offset = 0;
-	CRenderer::GetDeviceContext()->IASetVertexBuffers( 0, 1, &m_VertexBuffer, &stride, &offset );
+	CRenderer::GetDeviceContext()->IASetVertexBuffers(0, 1, &m_VertexBuffer, &stride, &offset);
 
 	// インデックスバッファ設定
 	CRenderer::GetDeviceContext()->IASetIndexBuffer(m_IndexBuffer, DXGI_FORMAT_R32_UINT, 0);
 
 	// テクスチャ設定
-	CRenderer::SetTexture( m_Texture, 0 );
+	CRenderer::SetTexture(m_Texture, 0);
 
 	// マトリクス設定
 	XMMATRIX world;
-	world = XMMatrixScaling( m_Scale.x, m_Scale.y, m_Scale.z );
-	world *= XMMatrixRotationRollPitchYaw( m_Rotation.x, m_Rotation.y, m_Rotation.z );
-	world *= XMMatrixTranslation( m_Position.x, m_Position.y, m_Position.z );
+	world = XMMatrixScaling(m_Scale.x, m_Scale.y, m_Scale.z);
+	world *= XMMatrixRotationRollPitchYaw(m_Rotation.x, m_Rotation.y, m_Rotation.z);
+	world *= XMMatrixTranslation(m_Position.x, m_Position.y, m_Position.z);
 	//CRenderer::SetWorldMatrix( &world );
 
 	XMFLOAT4X4 worldf;
@@ -149,16 +148,28 @@ void CField::Draw()
 	m_Shader->SetViewMatrix(&camera->GetViewMatrix());
 	m_Shader->SetProjectionMatrix(&camera->GetProjectionMatrix());
 	m_Shader->SetCameraPosition(&camera->GetPosition());
+	m_Shader->SetHeightYZW(XMFLOAT4(m_Height, 0.0, 0.0, 0.0));
 
 	m_Shader->Set();
 
 
 
 	// プリミティブトポロジ設定
-	CRenderer::GetDeviceContext()->IASetPrimitiveTopology( D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP );
+	CRenderer::GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 
 	// ポリゴン描画
 	CRenderer::GetDeviceContext()->DrawIndexed(((FIELD_X * 2 + 2) * (FIELD_Z - 1) - 2), 0, 0);
+
+}
+
+void CField::DrawImgui()
+{
+	if (!MyImgui::flags[m_Name])return;
+
+	if (ImGui::TreeNode(m_Name.c_str())) {
+		ImGui::DragFloat("Height", &m_Height, 0.05f, -20, 50);
+		ImGui::TreePop();
+	}
 
 }
 
