@@ -111,14 +111,14 @@ float perlinNoise3(in float3 vec)
 
 
 // フラクタルブラウンモーション
-float fbm2(in float2 vec, int octave)
+float fbm2(in float2 vec, int octave, float2 offset = 0.0)
 {
     float value = 0.0f;
     float amplitude = 1.0f;
     
     for (int i = 0; i < octave; i++)
     {
-        value += amplitude * perlinNoise2(vec);
+        value += amplitude * perlinNoise2(vec + offset);
         vec *= 2.0f;
         amplitude *= 0.5f;
 

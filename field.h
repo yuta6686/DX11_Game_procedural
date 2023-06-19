@@ -22,11 +22,14 @@ private:
 
 	CShader*		m_Shader;
 
+	float m_Height = 20;
+	std::string m_Name = "Field";
+
 public:
 	void Init();
 	void Uninit();
 	void Update();
 	void Draw();
-
+	void DrawImgui();
 
 };

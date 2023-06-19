@@ -1,6 +1,7 @@
 #pragma once
 
 #include <list>
+#include <string>
 #include "main.h"
 
 #include "game_object.h"
@@ -11,6 +12,8 @@
 #include "polygon.h"
 #include "sky.h"
 #include "water.h"
+
+#include "myImgui.h"
 
 class CScene
 {
@@ -27,7 +30,7 @@ public:
 		AddGameObject<CCamera>();
 		AddGameObject<CField>();
 		AddGameObject<CSky>();
-		//AddGameObject<CWater>();
+		AddGameObject<CWater>();
 		//AddGameObject<CModel>();
 		//AddGameObject<CModelNormal>();
 		//AddGameObject<CPolygon>();
@@ -58,6 +61,12 @@ public:
 			object->Draw();
 	}
 
+	virtual void DrawImgui()
+	{
+		for (CGameObject* object : m_GameObject)
+			object->DrawImgui();
+	}
+
 	void DrawShadow()
 	{
 		for (CGameObject* object : m_GameObject)
@@ -75,6 +84,18 @@ public:
 		return gameObject;
 	}
 
+	template <typename T>
+	T* GetGameObject() {
+		for (int i = 0; i < LAYER_NUM_MAX; i++) {
+			for (auto obj : m_GameObject[i]) {
 
+				//	Œ^‚ð’²‚×‚é(RTTI“®“IŒ^î•ñ)
+				if (typeid(*obj) == typeid(T)) {
+					return (T*)obj;
+				}
+			}
+		}
+		return nullptr;
+	}
 
 };
