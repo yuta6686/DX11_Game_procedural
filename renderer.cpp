@@ -274,9 +274,10 @@ void CRenderer::Begin()
 
 void CRenderer::End()
 {
-	m_SwapChain->Present( 1, 0 );
 	ImGui::Render();
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+
+	m_SwapChain->Present( 1, 0 );
 }
 
 
