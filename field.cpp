@@ -96,6 +96,8 @@ void CField::Init()
 
 	m_Shader = new CShader();
 	m_Shader->Init("shaderFieldVS.cso", "shaderFieldPS.cso");	
+
+	m_HeightOffsetZW.x = 20;
 }
 
 
@@ -148,7 +150,7 @@ void CField::Draw()
 	m_Shader->SetViewMatrix(&camera->GetViewMatrix());
 	m_Shader->SetProjectionMatrix(&camera->GetProjectionMatrix());
 	m_Shader->SetCameraPosition(&camera->GetPosition());
-	m_Shader->SetHeightYZW(XMFLOAT4(m_Height, 0.0, 0.0, 0.0));
+	m_Shader->SetHeightYZW(m_HeightOffsetZW);
 
 	m_Shader->Set();
 
@@ -167,7 +169,9 @@ void CField::DrawImgui()
 	if (!MyImgui::flags[m_Name])return;
 
 	if (ImGui::TreeNode(m_Name.c_str())) {
-		ImGui::DragFloat("Height", &m_Height, 0.05f, -20, 50);
+		ImGui::DragFloat("Height", &m_HeightOffsetZW.x, 0.05f, -20, 50);
+		ImGui::DragFloat("OffsetX", &m_HeightOffsetZW.y, 0.05f, -20, 50);
+		ImGui::DragFloat("OffsetY", &m_HeightOffsetZW.z, 0.05f, -20, 50);
 		ImGui::TreePop();
 	}
 

@@ -35,23 +35,42 @@ void main(in float4 inPosition : SV_POSITION,
     outDiffuse = g_Texture.Sample(g_SamplerState, inTexCoord);
     
     // 法線マッピング
-    float yx1 = fbm2(inTexCoord * 0.05 + float2(0.0001, 0.0), 6) * HeightYZW.x;
-    float yx2 = fbm2(inTexCoord * 0.05 - float2(0.0001, 0.0), 6) * HeightYZW.x;
+    float yx1 = fbm2(inTexCoord * 0.05 + float2(0.0001, 0.0), 6,HeightYZW.yz) * HeightYZW.x;
+    float yx2 = fbm2(inTexCoord * 0.05 - float2(0.0001, 0.0), 6,HeightYZW.yz) * HeightYZW.x;
+    float yz1 = fbm2(inTexCoord * 0.05 + float2(0.0, 0.0001), 6,HeightYZW.yz) * HeightYZW.x;
+    float yz2 = fbm2(inTexCoord * 0.05 - float2(0.0, 0.0001), 6,HeightYZW.yz) * HeightYZW.x;
     float3 vx = float3(0.01, yx2 - yx1, 0.0);
-    float yz1 = fbm2(inTexCoord * 0.05 + float2(0.0, 0.0001), 6) * HeightYZW.x;
-    float yz2 = fbm2(inTexCoord * 0.05 - float2(0.0, 0.0001), 6) * HeightYZW.x;
     float3 vz = float3(0.0, yz2 - yz1, 0.01);
     
     float3 normal = normalize(cross(vz, vx));
     
-    outDiffuse.rgb = gradation(inWorldPosition.y / 4 + 1.0);
     
-		// ライティング
-    float3 lightDir = normalize(float3(1.0, -1.0, 1.0));
+    // ライティング
+    float3 lightDir = normalize(float3(1.0, -1.0, 0.7));
     float3 light = 0.5 - dot(normal, lightDir) * 0.5;
     
-    outDiffuse.rgb *= light;    
-    //outDiffuse.rgb = normal;
+    // 視線ベクトル
+    float3 eye = inWorldPosition.xyz - CameraPosition.xyz;
+    eye = normalize(eye);
+    
+    // 反射ベクトル
+    float3 ref = reflect(lightDir, normal);
+    
+    // スペキュラー
+    float spec = -dot(eye, ref);
+    spec = saturate(pow(spec, 20));
+    
+    // フレネル計算
+    float fre = pow(dot(eye, normal), 4.0);
+    float fresnel = saturate(1.0 + dot(eye, normal));
+    fresnel = 0.05 + (1.0 - 0.05) * pow(fresnel, 1);
+    
+    // 距離
+    float dist = distance(inWorldPosition, CameraPosition);
+    
+    // 最終出力
+    float3 color = gradation(inWorldPosition.y / 4 + 1.0);
+    outDiffuse.rgb = lerp(color, 0.5, fresnel) * light + spec;    
 
 }
 

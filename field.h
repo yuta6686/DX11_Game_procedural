@@ -22,7 +22,7 @@ private:
 
 	CShader*		m_Shader;
 
-	float m_Height = 20;
+	XMFLOAT4 m_HeightOffsetZW;
 	std::string m_Name = "Field";
 
 public:
