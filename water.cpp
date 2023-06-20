@@ -63,7 +63,8 @@ void CWater::Init()
 	m_Shader = new CShader();
 	m_Shader->Init("shaderWaterVS.cso", "shaderWaterPS.cso");
 
-
+	m_Texture = new CTexture();
+	m_Texture->Load("data/TEXTURE/field004.tga");
 
 	m_Parameter.x = 0.0f;
 	m_Parameter.y = 5.0f;
@@ -77,7 +78,8 @@ void CWater::Uninit()
 {
 
 	m_VertexBuffer->Release();
-
+	m_Texture->Unload();
+	delete m_Texture;
 
 }
 
@@ -108,8 +110,9 @@ void CWater::Draw()
 	XMFLOAT4X4 worldf;
 	DirectX::XMStoreFloat4x4(&worldf, world);
 
-	m_Shader->SetWorldMatrix(&worldf);
+	m_Shader->SetWorldMatrix(&worldf);	
 
+	CRenderer::SetTexture(m_Texture, 1);
 
 	CCamera* camera = CCamera::GetInstance();
 	m_Shader->SetViewMatrix(&camera->GetViewMatrix());

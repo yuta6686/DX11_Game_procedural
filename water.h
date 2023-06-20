@@ -11,7 +11,7 @@ private:
 	CShader*		m_Shader;
 	
 	XMFLOAT4		m_Parameter;
-
+	CTexture*		m_Texture;
 public:
 	void Init();
 	void Uninit();
