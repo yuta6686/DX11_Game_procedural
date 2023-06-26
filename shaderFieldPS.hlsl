@@ -5,7 +5,7 @@
 Texture2D g_Texture : register(t0);
 SamplerState g_SamplerState : register(s0);
 
-
+    
 // 定数バッファ
 cbuffer ConstatntBuffer : register(b0)
 {
@@ -66,12 +66,20 @@ void main(in float4 inPosition : SV_POSITION,
     fresnel = 0.05 + (1.0 - 0.05) * pow(fresnel, 1);
     
     // 距離
-    float dist = distance(inWorldPosition, CameraPosition);
+    float dist = distance(inWorldPosition.xyz, CameraPosition.xyz);
+    
+    
+    // フォグ    
+    float fog = (1.0 - exp(-dist * 0.02));
+    float height = -inWorldPosition.y - 1.0f;
+    float fogHeight = saturate(height * 0.2f);
+    
     
     // 最終出力
     float3 color = gradation(inWorldPosition.y / 4 + 1.0);
     outDiffuse.rgb = lerp(color, 0.5, fresnel) * light + spec;    
-
+    outDiffuse.rgb = lerp(outDiffuse.rgb, float3(0.7,0.7,0.9), fog);
+    // outDiffuse.rgb = lerp(outDiffuse.rgb, float3(0.1, 0.2, 0.1), fogHeight);
 }
 
 
@@ -79,10 +87,10 @@ float3 gradation(float param)
 {
     float3 color = float3(1.0f, 1.0f, 1.0f);
     
-    float3 red = float3(0.5f, 0.5f, 0.0f);
-    float3 green = float3(0.0f, 1.0f, 0.0f);
-    float3 blue = float3(0.0f, 0.0f, 1.0f);
-    float3 white = float3(1.0f, 1.0f, 1.0f);
+    float3 red = float3(0.25f, 0.5f, 0.0f);
+    float3 green = float3(0.0f, 0.6f, 0.0f);
+    float3 blue = float3(0.0f, 0.0f, 0.4f);
+    float3 white = float3(0.5f, 0.5f, 0.5f);
     float3 black = float3(0.0f, 0.0f, 0.0f);          
     
     return lerp(lerp(blue, green, param / 2), lerp(green,red , param / 2), param);

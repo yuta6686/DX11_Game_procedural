@@ -172,6 +172,8 @@ void CField::DrawImgui()
 		ImGui::DragFloat("Height", &m_HeightOffsetZW.x, 0.05f, -20, 50);
 		ImGui::DragFloat("OffsetX", &m_HeightOffsetZW.y, 0.05f, -20, 50);
 		ImGui::DragFloat("OffsetY", &m_HeightOffsetZW.z, 0.05f, -20, 50);
+		//ImGui::DragFloat("fog", &m_HeightOffsetZW.w, 0.001f, 0.0f,0.1f);
+		ImGui::DragFloat("fog", &m_HeightOffsetZW.w, 0.01f, 0.0f, 1.0f);
 		ImGui::TreePop();
 	}
 

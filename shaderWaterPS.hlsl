@@ -72,9 +72,16 @@ void main( in  float4 inPosition		: SV_POSITION,
     float fre = pow(dot(eye, normal),4.0);
     float fresnel = saturate(1.0 + dot(eye, normal));
     fresnel = Parameter.w + (1.0 - Parameter.w) * pow(fresnel, 5);
+    
+    // 距離
+    float dist = distance(inWorldPosition.xyz, CameraPosition.xyz);    
+    
+    // フォグ
+    float fog = (1.0 - exp(-dist * 0.02));    
 
     // 最終出力
     outDiffuse.rgb = lerp(float3(1, 1, 1), float3(0.1, 0.5, 1), light / 1.1) + spec * fresnel;
     outDiffuse.a = max(light.y + Parameter.z - 0.4, spec) * (0.5f - fre);
     
+    outDiffuse.rgb = lerp(outDiffuse.rgb, float3(0.7, 0.7, 0.9), fog);    
 }

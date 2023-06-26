@@ -13,7 +13,7 @@ private:
 	XMFLOAT4X4	m_InvViewMatrix;
 	XMFLOAT4X4	m_ProjectionMatrix;
 
-
+	float m_CamearaSpeed = 2.0f;
 public:
 	CCamera() { m_Instance = this; }
 	static CCamera* GetInstance() { return m_Instance; }
@@ -23,6 +23,7 @@ public:
 	void Update();
 	void Draw();
 	void DrawShadow();
+	void DrawImgui();
 
 
 	XMFLOAT4X4	GetViewMatrix() { return m_ViewMatrix; }

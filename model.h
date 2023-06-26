@@ -46,7 +46,7 @@ private:
 
 
 	CShader*		m_Shader;
-	CTexture*		m_TextureFur;
+	///CTexture*		m_TextureFur;
 
 
 public:
