@@ -16,20 +16,21 @@ void CModel::Init()
 {
 	m_Position = XMFLOAT3( 0.0f, 0.0f, 0.0f );
 	m_Rotation = XMFLOAT3( 0.0f, 0.0f, 0.0f );
-	m_Scale = XMFLOAT3( 1.0f, 1.0f, 1.0f );
+	m_Scale = XMFLOAT3( 50.0f, 50.0f, 50.0f );
 
 
 	//Load( "data/MODEL/miku_01.obj" );
 	//Load("data/MODEL/cube.obj");
 	//Load("data/MODEL/sphere_smooth.obj");
-	Load("data/MODEL/torus.obj");
+	//Load("data/MODEL/torus.obj");
+	Load("data/MODEL/sky.obj");
 
 
 	m_Shader = new CShader();
-	m_Shader->Init("shader3DTextureVS.cso", "shader3DTexturePS.cso");
+	m_Shader->Init("shaderSkyVS.cso", "shaderSkyPS.cso");
 
-	m_TextureFur = new CTexture();
-	m_TextureFur->Load("data/TEXTURE/fur.tga");
+	/*m_TextureFur = new CTexture();
+	m_TextureFur->Load("data/TEXTURE/fur.tga");*/
 
 }
 
@@ -91,7 +92,7 @@ void CModel::Draw()
 
 
 	//トゥーンテクスチャ
-	CRenderer::SetTexture(m_TextureFur, 1);
+	//CRenderer::SetTexture(m_TextureFur, 1);
 
 
 
@@ -117,7 +118,7 @@ void CModel::Draw()
 		//CRenderer::SetMaterial( m_SubsetArray[i].Material.Material );
 
 		// テクスチャ設定
-		CRenderer::SetTexture( m_SubsetArray[i].Material.Texture );
+		//CRenderer::SetTexture( m_SubsetArray[i].Material.Texture );
 
 		// ポリゴン描画
 		CRenderer::DrawIndexed( m_SubsetArray[i].IndexNum, m_SubsetArray[i].StartIndex, 0 );
@@ -125,27 +126,27 @@ void CModel::Draw()
 
 
 	// ファー描画
-	for (unsigned short l = 0; l < 20; l++)
-	{
-		XMFLOAT4 parameter;
-		parameter.x = l * 0.02f;
-		parameter.y = l / 19.0f;
-		parameter.z = 0.0f;
-		m_Shader->SetPrameter( parameter );
-		m_Shader->Set();
+	//for (unsigned short l = 0; l < 20; l++)
+	//{
+	//	XMFLOAT4 parameter;
+	//	parameter.x = l * 0.02f;
+	//	parameter.y = l / 19.0f;
+	//	parameter.z = 0.0f;
+	//	m_Shader->SetPrameter( parameter );
+	//	m_Shader->Set();
 
-		for (unsigned short i = 0; i < m_SubsetNum; i++)
-		{
-			// マテリアル設定
-			//CRenderer::SetMaterial( m_SubsetArray[i].Material.Material );
+	//	for (unsigned short i = 0; i < m_SubsetNum; i++)
+	//	{
+	//		// マテリアル設定
+	//		//CRenderer::SetMaterial( m_SubsetArray[i].Material.Material );
 
-			// テクスチャ設定
-			CRenderer::SetTexture(m_SubsetArray[i].Material.Texture);
+	//		// テクスチャ設定
+	//		CRenderer::SetTexture(m_SubsetArray[i].Material.Texture);
 
-			// ポリゴン描画
-			CRenderer::DrawIndexed(m_SubsetArray[i].IndexNum, m_SubsetArray[i].StartIndex, 0);
-		}
-	}
+	//		// ポリゴン描画
+	//		CRenderer::DrawIndexed(m_SubsetArray[i].IndexNum, m_SubsetArray[i].StartIndex, 0);
+	//	}
+	//}
 }
 
 
@@ -175,7 +176,7 @@ void CModel::DrawShadow()
 
 
 	//トゥーンテクスチャ
-	CRenderer::SetTexture(m_TextureFur, 1);
+	//CRenderer::SetTexture(m_TextureFur, 1);
 
 
 
@@ -201,7 +202,7 @@ void CModel::DrawShadow()
 		//CRenderer::SetMaterial( m_SubsetArray[i].Material.Material );
 
 		// テクスチャ設定
-		CRenderer::SetTexture(m_SubsetArray[i].Material.Texture);
+		//CRenderer::SetTexture(m_SubsetArray[i].Material.Texture);
 
 		// ポリゴン描画
 		CRenderer::DrawIndexed(m_SubsetArray[i].IndexNum, m_SubsetArray[i].StartIndex, 0);
@@ -266,8 +267,8 @@ void CModel::Load( const char *FileName )
 
 			m_SubsetArray[i].Material.Material = model.SubsetArray[i].Material.Material;
 
-			m_SubsetArray[i].Material.Texture = new CTexture();
-			m_SubsetArray[i].Material.Texture->Load( model.SubsetArray[i].Material.TextureName );
+			//m_SubsetArray[i].Material.Texture = new CTexture();
+			//m_SubsetArray[i].Material.Texture->Load( model.SubsetArray[i].Material.TextureName );
 
 		}
 	}
