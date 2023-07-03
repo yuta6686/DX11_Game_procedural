@@ -150,7 +150,7 @@ void CField::Draw()
 	m_Shader->SetViewMatrix(&camera->GetViewMatrix());
 	m_Shader->SetProjectionMatrix(&camera->GetProjectionMatrix());
 	m_Shader->SetCameraPosition(&camera->GetPosition());
-	m_Shader->SetHeightYZW(m_HeightOffsetZW);
+	m_Shader->SetParameter2(m_HeightOffsetZW);
 
 	m_Shader->Set();
 
@@ -169,7 +169,7 @@ void CField::DrawImgui()
 	if (!MyImgui::flags[m_Name])return;
 
 	if (ImGui::TreeNode(m_Name.c_str())) {
-		ImGui::DragFloat("Height", &m_HeightOffsetZW.x, 0.05f, -20, 50);
+		ImGui::DragFloat("z", &m_HeightOffsetZW.x, 0.05f, -20, 50);
 		ImGui::DragFloat("OffsetX", &m_HeightOffsetZW.y, 0.05f, -20, 50);
 		ImGui::DragFloat("OffsetY", &m_HeightOffsetZW.z, 0.05f, -20, 50);
 		//ImGui::DragFloat("fog", &m_HeightOffsetZW.w, 0.001f, 0.0f,0.1f);

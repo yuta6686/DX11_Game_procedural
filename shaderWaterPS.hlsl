@@ -84,4 +84,6 @@ void main( in  float4 inPosition		: SV_POSITION,
     outDiffuse.a = max(light.y + Parameter.z - 0.4, spec) * (0.5f - fre);
     
     outDiffuse.rgb = lerp(outDiffuse.rgb, float3(0.7, 0.7, 0.9), fog);    
+    
+    
 }

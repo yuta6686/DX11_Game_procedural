@@ -12,11 +12,13 @@ private:
 
 	float			m_Time;
 
+	XMFLOAT4		m_Parameter;
+	std::string m_Name = "Sky";
 public:
 	void Init();
 	void Uninit();
 	void Update();
 	void Draw();
-
+	void DrawImgui();
 
 };
