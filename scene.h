@@ -1,11 +1,5 @@
 #pragma once
 
-#include <list>
-#include <string>
-#include "main.h"
-
-#include "game_object.h"
-
 #include "camera.h"
 #include "field.h"
 #include "model.h"
@@ -13,7 +7,6 @@
 #include "sky.h"
 #include "water.h"
 
-#include "myImgui.h"
 
 class CScene
 {
