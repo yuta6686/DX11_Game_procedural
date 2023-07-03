@@ -1,11 +1,4 @@
-
-#include "main.h"
-#include "renderer.h"
-#include "game_object.h"
 #include "camera.h"
-#include "input.h"
-#include "myImgui.h"
-
 
 CCamera* CCamera::m_Instance = nullptr;
 

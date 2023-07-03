@@ -92,6 +92,9 @@
     <ClCompile Include="imgui\imgui_widgets.cpp">
       <Filter>ImGui</Filter>
     </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>ソース ファイル\system</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -162,6 +165,9 @@
     </ClInclude>
     <ClInclude Include="myImgui.h">
       <Filter>ソース ファイル\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>ソース ファイル\system</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

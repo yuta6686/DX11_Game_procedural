@@ -1,13 +1,6 @@
 
-#include "main.h"
-#include "manager.h"
-#include "input.h"
-#include "renderer.h"
-#include "shader.h"
 #include "scene.h"
-#include "field.h"
-#include "polygon.h"
-#include "model.h"
+#include "manager.h"
 
 
 
