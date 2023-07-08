@@ -6,17 +6,18 @@ class CWater : public CGameObject
 private:
 
 	ID3D11Buffer*	m_VertexBuffer = NULL;
-	CTexture*		m_Texture = NULL;
+
 
 	CShader*		m_Shader;
-
-	float			m_Time;
-
+	
+	XMFLOAT4		m_Parameter;
+	CTexture*		m_Texture;
+	
 public:
 	void Init();
 	void Uninit();
 	void Update();
 	void Draw();
-
+	void DrawImgui();
 
 };

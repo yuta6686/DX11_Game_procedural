@@ -46,8 +46,10 @@ private:
 
 
 	CShader*		m_Shader;
-	CTexture*		m_TextureFur;
-
+	///CTexture*		m_TextureFur;
+	
+	MyImguiData _mydata;
+	std::string m_Name = "Sky(Model)";
 
 public:
 	void Init();
@@ -58,5 +60,5 @@ public:
 
 	void Load( const char *FileName );
 	void Unload();
-
+	void DrawImgui();
 };

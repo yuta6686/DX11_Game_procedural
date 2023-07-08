@@ -1,5 +1,6 @@
 #pragma once
 
+#include "myImgui.h"
 
 struct CONSTANT
 {
@@ -10,6 +11,7 @@ struct CONSTANT
 
 	XMFLOAT4				CameraPosition;
 	XMFLOAT4				Parameter;
+	XMFLOAT4				Parameter2;
 };
 
 class CShader
@@ -33,7 +35,8 @@ public:
 	void SetWorldMatrix(XMFLOAT4X4* WorldMatrix) { m_Constant.WorldMatrix = Transpose( WorldMatrix ); }
 	void SetViewMatrix(XMFLOAT4X4* ViewMatrix) { m_Constant.ViewMatrix = Transpose( ViewMatrix ); }
 	void SetProjectionMatrix(XMFLOAT4X4* ProjectionMatrix) { m_Constant.ProjectionMatrix = Transpose( ProjectionMatrix ); }
-	void SetPrameter(XMFLOAT4 Parameter) { m_Constant.Parameter = Parameter; }
+	void SetParameter(XMFLOAT4 Parameter) { m_Constant.Parameter = Parameter; }
+	void SetParameter2(XMFLOAT4 xyzw) { m_Constant.Parameter2 = xyzw; }
 
 	void SetCameraPosition(XMFLOAT3* CameraPosition)
 	{

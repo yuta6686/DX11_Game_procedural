@@ -9,6 +9,9 @@ cbuffer ConstatntBuffer : register(b0)
     matrix Projection;
 
     float4 CameraPosition;
+    float4 Parameter;
+    float4 HeightYZW;
+    
 }
 
 
@@ -30,7 +33,7 @@ void main(in float4 inPosition : POSITION0,
     wvp = mul(World, View);
     wvp = mul(wvp, Projection);
 
-    inPosition.y = fbm2(inTexCoord * 0.05f,6) * 20; 
+    inPosition.y = fbm2(inTexCoord * 0.05f, 6,HeightYZW.yz) * HeightYZW.x;
     // ©‚±‚±‚Ì”’l‚ğƒmƒCƒY‚È‚Ç‚Å•Ï‚¦‚Ä‚İ‚é
 
     outPosition = mul(inPosition, wvp);

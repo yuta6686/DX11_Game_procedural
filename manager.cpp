@@ -1,13 +1,6 @@
 
-#include "main.h"
-#include "manager.h"
-#include "input.h"
-#include "renderer.h"
-#include "shader.h"
 #include "scene.h"
-#include "field.h"
-#include "polygon.h"
-#include "model.h"
+#include "manager.h"
 
 
 
@@ -23,6 +16,7 @@ void CManager::Init()
 	m_Scene = new CScene();
 	m_Scene->Init();
 
+	MyImgui::InitFlags();
 }
 
 void CManager::Uninit()
@@ -56,6 +50,34 @@ void CManager::Draw()
 	CRenderer::Begin();
 
 	m_Scene->Draw();
+
+#ifdef _DEBUG
+	// CRenderer::imguiDraw();
+
+	const std::string window_name = "Imgui";
+	
+	ImGui::Begin(window_name.c_str(), &MyImgui::flags[window_name],
+		ImGuiWindowFlags_MenuBar );
+
+	ImGui::BeginMenuBar();
+	{
+
+		if (ImGui::BeginMenu("main"))
+		{
+			for (auto& mi : MyImgui::flags)
+			{
+				ImGui::MenuItem(mi.first.c_str(), NULL, &mi.second);
+			}
+
+			ImGui::EndMenu();
+		}
+		ImGui::EndMenuBar();
+	}
+
+	m_Scene->DrawImgui();
+
+	ImGui::End();
+#endif // _DEBUG
 
 	CRenderer::End();
 

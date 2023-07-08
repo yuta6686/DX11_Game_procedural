@@ -1,16 +1,13 @@
 #pragma once
 
-#include <list>
-#include "main.h"
-
-#include "game_object.h"
-
 #include "camera.h"
 #include "field.h"
 #include "model.h"
 #include "polygon.h"
 #include "sky.h"
 #include "water.h"
+#include "OperationExplanation.h"
+
 
 class CScene
 {
@@ -26,11 +23,12 @@ public:
 	{
 		AddGameObject<CCamera>();
 		AddGameObject<CField>();
-		AddGameObject<CSky>();
-		//AddGameObject<CWater>();
-		//AddGameObject<CModel>();
+		//AddGameObject<CSky>();
+		AddGameObject<CWater>();
+		AddGameObject<CModel>();
 		//AddGameObject<CModelNormal>();
 		//AddGameObject<CPolygon>();
+		AddGameObject<operation_explanation>();
 	}
 
 	virtual void Uninit()
@@ -58,6 +56,12 @@ public:
 			object->Draw();
 	}
 
+	virtual void DrawImgui()
+	{
+		for (CGameObject* object : m_GameObject)
+			object->DrawImgui();
+	}
+
 	void DrawShadow()
 	{
 		for (CGameObject* object : m_GameObject)
@@ -75,6 +79,18 @@ public:
 		return gameObject;
 	}
 
+	template <typename T>
+	T* GetGameObject() {
+		for (int i = 0; i < LAYER_NUM_MAX; i++) {
+			for (auto obj : m_GameObject[i]) {
 
+				//	Œ^‚ð’²‚×‚é(RTTI“®“IŒ^î•ñ)
+				if (typeid(*obj) == typeid(T)) {
+					return (T*)obj;
+				}
+			}
+		}
+		return nullptr;
+	}
 
 };

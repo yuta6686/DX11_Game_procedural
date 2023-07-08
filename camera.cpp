@@ -1,11 +1,4 @@
-
-#include "main.h"
-#include "renderer.h"
-#include "game_object.h"
 #include "camera.h"
-#include "input.h"
-
-
 
 CCamera* CCamera::m_Instance = nullptr;
 
@@ -22,6 +15,7 @@ void CCamera::Init()
 	m_Viewport.right = SCREEN_WIDTH;
 	m_Viewport.bottom = SCREEN_HEIGHT;
 
+	MyImgui::flags["Camera"] = true;
 }
 
 
@@ -46,30 +40,30 @@ void CCamera::Update()
 
 	if (CInput::GetKeyPress('A'))
 	{
-		m_Position.x -= left.x * 0.1f;
-		m_Position.z -= left.z * 0.1f;
+		m_Position.x -= left.x * 0.1f * m_CamearaSpeed;
+		m_Position.z -= left.z * 0.1f * m_CamearaSpeed;
 	}
 	if (CInput::GetKeyPress('D'))
 	{
-		m_Position.x += left.x * 0.1f;
-		m_Position.z += left.z * 0.1f;
+		m_Position.x += left.x * 0.1f * m_CamearaSpeed;
+		m_Position.z += left.z * 0.1f * m_CamearaSpeed;
 	}
 
 	if (CInput::GetKeyPress('W'))
 	{
-		m_Position.x += front.x * 0.1f;
-		m_Position.z += front.z * 0.1f;
+		m_Position.x += front.x * 0.1f * m_CamearaSpeed;
+		m_Position.z += front.z * 0.1f * m_CamearaSpeed;
 	}
 	if (CInput::GetKeyPress('S'))
 	{
-		m_Position.x -= front.x * 0.1f;
-		m_Position.z -= front.z * 0.1f;
+		m_Position.x -= front.x * 0.1f * m_CamearaSpeed;
+		m_Position.z -= front.z * 0.1f * m_CamearaSpeed;
 	}
 
 	if (CInput::GetKeyPress('E'))
-		m_Position.y += 0.05f;
+		m_Position.y += 0.05f * m_CamearaSpeed;
 	if (CInput::GetKeyPress('Q'))
-		m_Position.y -= 0.05f;
+		m_Position.y -= 0.05f * m_CamearaSpeed;
 
 	if (CInput::GetKeyPress('J'))
 		m_Rotation.y -= 0.05f;
@@ -169,5 +163,17 @@ void CCamera::DrawShadow()
 	//CRenderer::SetProjectionMatrix(&m_ProjectionMatrix);
 
 
+}
+
+void CCamera::DrawImgui()
+{
+	if (MyImgui::flags["Camera"] == false)return;
+
+	if (ImGui::TreeNode("Camera")) {
+
+		ImGui::DragFloat("Speed", &m_CamearaSpeed, 0.1f, 0, 5);
+
+		ImGui::TreePop();
+	}
 }
 
