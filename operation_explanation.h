@@ -1,6 +1,6 @@
 #pragma once
 #include "game_object.h"
-class operation_explanation :
+class OperationExplanation :
     public VGameObject
 {
 private:

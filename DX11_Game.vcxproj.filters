@@ -101,14 +101,14 @@
     <ClCompile Include="imodel.cpp">
       <Filter>ソース ファイル\Interface</Filter>
     </ClCompile>
-    <ClCompile Include="tree.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="myImgui.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="OperationExplanation.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="tree.cpp">
+      <Filter>ソース ファイル\game_object</Filter>
+    </ClCompile>
+    <ClCompile Include="operation_explanation.cpp">
+      <Filter>ソース ファイル\game_object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -187,11 +187,15 @@
     <ClInclude Include="imodel.h">
       <Filter>ソース ファイル\Interface</Filter>
     </ClInclude>
-    <ClInclude Include="tree.h" />
     <ClInclude Include="my_math.h">
       <Filter>ソース ファイル\system</Filter>
     </ClInclude>
-    <ClInclude Include="OperationExplanation.h" />
+    <ClInclude Include="operation_explanation.h">
+      <Filter>ソース ファイル\game_object</Filter>
+    </ClInclude>
+    <ClInclude Include="tree.h">
+      <Filter>ソース ファイル\game_object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

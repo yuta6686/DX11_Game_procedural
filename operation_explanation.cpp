@@ -1,7 +1,7 @@
 #include "stdafx.h"
-#include "OperationExplanation.h"
+#include "operation_explanation.h"
 
-void operation_explanation::Init()
+void OperationExplanation::Init()
 {
 	_nodeText = "OperationExplanation";
 	_explanationText = "[WASD]:Camera Move\n[IJKL]:Target Move";	
@@ -9,19 +9,19 @@ void operation_explanation::Init()
 	MyImgui::flags[_nodeText] = true;
 }
 
-void operation_explanation::Uninit()
+void OperationExplanation::Uninit()
 {
 }
 
-void operation_explanation::Update()
+void OperationExplanation::Update()
 {
 }
 
-void operation_explanation::Draw()
+void OperationExplanation::Draw()
 {
 }
 
-void operation_explanation::DrawImgui()
+void OperationExplanation::DrawImgui()
 {
 	if (!MyImgui::flags[_nodeText])return;
 
