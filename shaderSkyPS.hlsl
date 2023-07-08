@@ -14,7 +14,7 @@ cbuffer ConstatntBuffer : register(b0)
 
     float4 CameraPosition;
     float4 Parameter;
-
+    float4 Parameter2;
 }
 
 
@@ -72,7 +72,7 @@ void main( in  float4 inPosition		: SV_POSITION,
     
     // ‰_ 
     float2 offset = float2(Parameter.w, -Parameter.w) / 10;
-    float2 cloudPosition = inWorldPosition.xz / inWorldPosition.y;
+    float2 cloudPosition = inWorldPosition.xz / inWorldPosition.y + offset;
     float noise = fbm2(cloudPosition, 5);
     outDiffuse.rgb = lerp(outDiffuse.rgb, float3(1.0, 1.0, 1.0), noise);
     

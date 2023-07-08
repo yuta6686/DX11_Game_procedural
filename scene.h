@@ -6,6 +6,7 @@
 #include "polygon.h"
 #include "sky.h"
 #include "water.h"
+#include "OperationExplanation.h"
 
 
 class CScene
@@ -27,6 +28,7 @@ public:
 		AddGameObject<CModel>();
 		//AddGameObject<CModelNormal>();
 		//AddGameObject<CPolygon>();
+		AddGameObject<operation_explanation>();
 	}
 
 	virtual void Uninit()

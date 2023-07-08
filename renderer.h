@@ -152,4 +152,8 @@ public:
 #ifdef _DEBUG
 	static void imguiDraw();
 #endif // _DEBUG
+
+private:
+	// PCに接続されたグラフィックスカードの中で最も大きなビデオメモリを持つカードを見つけ
+	static int GetGPUWithMaxMemory(IDXGIFactory* factory);
 };

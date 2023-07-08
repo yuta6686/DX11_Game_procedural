@@ -151,6 +151,7 @@
     <ClCompile Include="manager.cpp" />
     <ClCompile Include="model.cpp" />
     <ClCompile Include="myImgui.cpp" />
+    <ClCompile Include="OperationExplanation.cpp" />
     <ClCompile Include="renderer.cpp" />
     <ClCompile Include="shader.cpp" />
     <ClCompile Include="sky.cpp" />
@@ -184,6 +185,7 @@
     <ClInclude Include="model.h" />
     <ClInclude Include="myImgui.h" />
     <ClInclude Include="my_math.h" />
+    <ClInclude Include="OperationExplanation.h" />
     <ClInclude Include="renderer.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="shader.h" />

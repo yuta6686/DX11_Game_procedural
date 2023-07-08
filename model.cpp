@@ -45,6 +45,8 @@ void CModel::Init()
 	_mydata._eAxis.y = true;
 	_mydata._eAxis.z = true;
 	_mydata._eAxis.w = false;
+
+	_mydata._label.ChangeLabel("LightPosX", "LightPosY", "LightPosZ");
 }
 
 
@@ -319,6 +321,7 @@ void CModel::DrawImgui()
 	if (!_mydata.GetMyFlag(m_Name))return;
 
 	_mydata.DragFloatParameter(m_Name);
+	ImGui::Text("w:%.2f", _mydata._parameter.w);
 }
 
 

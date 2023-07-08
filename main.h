@@ -12,10 +12,11 @@ using namespace DirectX;
 #pragma comment (lib, "d3d11.lib")
 #pragma comment (lib, "winmm.lib")
 #pragma comment (lib, "xaudio2.lib")
+#pragma comment (lib, "dxgi.lib")
 
 
-#define SCREEN_WIDTH	(960)			// ウインドウの幅
-#define SCREEN_HEIGHT	(540)			// ウインドウの高さ
+#define SCREEN_WIDTH	(960*2)			// ウインドウの幅
+#define SCREEN_HEIGHT	(540*2)			// ウインドウの高さ
 
 
 HWND GetWindow();
