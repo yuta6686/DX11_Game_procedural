@@ -28,3 +28,5 @@
 #include "game_object.h"
 #include "input.h"
 #include "shader.h"
+#include "camera.h"
+#include "my_math.h"

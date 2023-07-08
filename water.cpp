@@ -119,7 +119,7 @@ void CWater::Draw()
 	m_Shader->SetProjectionMatrix(&camera->GetProjectionMatrix());
 	m_Shader->SetCameraPosition(&camera->GetPosition());
 
-	m_Shader->SetPrameter(m_Parameter);
+	m_Shader->SetParameter(m_Parameter);
 
 	m_Shader->Set();
 

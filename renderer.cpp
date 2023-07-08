@@ -25,6 +25,14 @@ void CRenderer::Init()
 {
 	HRESULT hr = S_OK;
 
+	IDXGIFactory* factory;
+	CreateDXGIFactory(__uuidof(IDXGIFactory), (void**)(&factory));
+
+
+	IDXGIAdapter* adapter;
+	int GPUNumber = GetGPUWithMaxMemory(factory);
+	hr = factory->EnumAdapters(GPUNumber, &adapter);
+
 	// デバイス、スワップチェーン、コンテキスト生成
 	DXGI_SWAP_CHAIN_DESC sd;
 	ZeroMemory( &sd, sizeof( sd ) );
@@ -40,8 +48,8 @@ void CRenderer::Init()
 	sd.SampleDesc.Quality = 0;
 	sd.Windowed = TRUE;
 
-	hr = D3D11CreateDeviceAndSwapChain( NULL,
-										D3D_DRIVER_TYPE_HARDWARE,
+	hr = D3D11CreateDeviceAndSwapChain( adapter,
+										D3D_DRIVER_TYPE_UNKNOWN,
 										NULL,
 										0,
 										NULL,
@@ -245,7 +253,7 @@ void CRenderer::Init()
 	ImGui_ImplWin32_Init(GetWindow());
 	ImGui_ImplDX11_Init(m_D3DDevice, m_ImmediateContext);
 
-	io.Fonts->AddFontFromFileTTF("imgui/misc/fonts/Roboto-Medium.ttf", 20);
+	io.Fonts->AddFontFromFileTTF("data/FONT/NotoSansJP-ExtraBold.ttf", 24);
 }
 
 
@@ -398,3 +406,34 @@ void CRenderer::imguiDraw()
 
 }
 #endif // _DEBUG
+
+int CRenderer::GetGPUWithMaxMemory(IDXGIFactory* factory)
+{
+	HRESULT hr = S_OK;
+
+	DXGI_ADAPTER_DESC adapterDesc;
+
+	int GPUNumber = 0;
+	int GPUMaxMem = 0;
+	for (int i = 0; i < 100; i++)
+	{
+		IDXGIAdapter* adapter;
+		hr = factory->EnumAdapters(i, &adapter);
+		if (FAILED(hr))
+			break;
+
+		hr = adapter->GetDesc(&adapterDesc);
+
+		//ビデオカードメモリを取得（MB単位）
+		int videoCardMemory = (int)(adapterDesc.DedicatedVideoMemory / 1024 / 1024);
+
+		if (videoCardMemory > GPUMaxMem)
+		{
+			GPUMaxMem = videoCardMemory;
+			GPUNumber = i;
+		}
+
+		factory->Release();
+	}
+	return GPUNumber;
+}

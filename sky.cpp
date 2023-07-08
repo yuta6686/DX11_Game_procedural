@@ -68,7 +68,7 @@ void CSky::Init()
 
 
 	m_Time = 0.0f;
-
+	MyImgui::flags[m_Name] = true;
 }
 
 
@@ -120,7 +120,8 @@ void CSky::Draw()
 	m_Shader->SetProjectionMatrix(&camera->GetProjectionMatrix());
 	m_Shader->SetCameraPosition(&camera->GetPosition());
 
-	m_Shader->SetPrameter( XMFLOAT4(m_Time, 0.0f, 0.0f, 0.0f));
+	m_Parameter.w = m_Time;
+	m_Shader->SetParameter(m_Parameter);
 
 	m_Shader->Set();
 
@@ -132,4 +133,16 @@ void CSky::Draw()
 	// ƒ|ƒŠƒSƒ“•`‰æ
 	CRenderer::GetDeviceContext()->Draw( 4, 0 );
 
+}
+
+void CSky::DrawImgui()
+{
+	if (!MyImgui::flags[m_Name])return;
+
+	if (ImGui::TreeNode(m_Name.c_str())) {
+		ImGui::DragFloat("LightDir.x", &m_Parameter.x, 0.05f, -1, 1);
+		ImGui::DragFloat("LightDir.y", &m_Parameter.y, 0.05f, -1, 1);
+		ImGui::DragFloat("LightDir.z", &m_Parameter.z, 0.05f, -1, 1);				
+		ImGui::TreePop();
+	}
 }
