@@ -91,13 +91,13 @@ void CField::Init()
 
 	m_Position = XMFLOAT3(0.0f, 0.0f, 0.0f);
 	m_Rotation = XMFLOAT3(0.0f, 0.0f, 0.0f);
-	m_Scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+	m_Scale = XMFLOAT3(3.0f, 1.0f, 3.0f);
 
 
 	m_Shader = new CShader();
 	m_Shader->Init("shaderFieldVS.cso", "shaderFieldPS.cso");	
 
-	m_HeightOffsetZW.x = 20;
+	m_HeightOffsetZW.x = 50;
 }
 
 
@@ -169,7 +169,7 @@ void CField::DrawImgui()
 	if (!MyImgui::flags[m_Name])return;
 
 	if (ImGui::TreeNode(m_Name.c_str())) {
-		ImGui::DragFloat("z", &m_HeightOffsetZW.x, 0.05f, -20, 50);
+		ImGui::DragFloat("z", &m_HeightOffsetZW.x, 0.05f, -20, 100);
 		ImGui::DragFloat("OffsetX", &m_HeightOffsetZW.y, 0.05f, -20, 50);
 		ImGui::DragFloat("OffsetY", &m_HeightOffsetZW.z, 0.05f, -20, 50);
 		//ImGui::DragFloat("fog", &m_HeightOffsetZW.w, 0.001f, 0.0f,0.1f);

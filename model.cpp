@@ -16,7 +16,7 @@ void CModel::Init()
 {
 	m_Position = XMFLOAT3(0.0f, 0.0f, 0.0f);
 	m_Rotation = XMFLOAT3(0.0f, 0.0f, 0.0f);
-	m_Scale = XMFLOAT3(50.0f, 50.0f, 50.0f);
+	m_Scale = XMFLOAT3(100.0f, 100.0f, 100.0f);
 
 
 	//Load( "data/MODEL/miku_01.obj" );

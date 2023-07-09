@@ -8,11 +8,20 @@
 #include "water.h"
 #include "operation_explanation.h"
 
+enum LAYER {
+	LAYER_BEGIN = 0,
+	LAYER_3D,
+	LAYER_RENDERING_TEXTURE,
+	LAYER_IMGUI,
+	LAYER_2D,
+	LAYER_LAST,
+	LAYER_NUM_MAX,
+};
 
 class CScene
 {
 protected:
-	std::list<CGameObject*>	m_GameObject;
+	std::list<CGameObject*>	m_GameObject[LAYER_NUM_MAX];
 
 public:
 	CScene(){}
@@ -20,61 +29,83 @@ public:
 
 
 	virtual void Init()
-	{
-		AddGameObject<CCamera>();
-		AddGameObject<CField>();
-		//AddGameObject<CSky>();
-		AddGameObject<CWater>();
-		AddGameObject<CModel>();
-		//AddGameObject<CModelNormal>();
-		//AddGameObject<CPolygon>();
-		AddGameObject<OperationExplanation>();
+	{		
+		CreateGameObject();
 	}
 
 	virtual void Uninit()
 	{
-		for (CGameObject* object : m_GameObject)
-		{
-			object->Uninit();
-			delete object;
-		}
+		for (int i = 0; i < LAYER_NUM_MAX; i++) {
+			for (CGameObject* object : m_GameObject[i])
+			{
+				object->Uninit();
+				delete object;
+			}
 
-		m_GameObject.clear();
+			m_GameObject[i].clear();
+		}
 	}
 
 
 	virtual void Update()
 	{
-		for( CGameObject* object : m_GameObject )
-			object->Update();
+		for (int i = 0; i < LAYER_NUM_MAX; i++) {
+			for (CGameObject* object : m_GameObject[i])
+			{
+				object->Update();
+			}
+		}
 	}
 
 
 	virtual void Draw()
-	{
-		for (CGameObject* object : m_GameObject)
-			object->Draw();
+	{		
+		for (int i = 0; i < LAYER_NUM_MAX; i++) {
+			if (i == LAYER_RENDERING_TEXTURE)continue;
+			for (CGameObject* object : m_GameObject[i])
+			{
+				object->Draw();
+			}
+		}
+	}
+
+	virtual void DrawUseRenderingTexture()
+	{		
+		for (int i = 0; i < LAYER_NUM_MAX; i++) {
+			for (CGameObject* object : m_GameObject[i])
+			{
+				object->Draw();
+			}
+		}
 	}
 
 	virtual void DrawImgui()
 	{
-		for (CGameObject* object : m_GameObject)
-			object->DrawImgui();
+		for (int i = 0; i < LAYER_NUM_MAX; i++) {
+			for (CGameObject* object : m_GameObject[i])
+			{
+				object->DrawImgui();
+			}
+		}
 	}
 
 	void DrawShadow()
 	{
-		for (CGameObject* object : m_GameObject)
-			object->DrawShadow();
+		for (int i = 0; i < LAYER_NUM_MAX; i++) {
+			for (CGameObject* object : m_GameObject[i])
+			{
+				object->DrawShadow();
+			}
+		}
 	}
 
 
 	template <typename T>
-	T* AddGameObject()
+	T* AddGameObject(int Layer)
 	{
 		T* gameObject = new T();
 		gameObject->Init();
-		m_GameObject.push_back( gameObject );
+		m_GameObject[Layer].push_back(gameObject);
 
 		return gameObject;
 	}
@@ -92,5 +123,9 @@ public:
 		}
 		return nullptr;
 	}
+
+private:
+	void CreateGameObject();
+	void IncrementName(CGameObject* obj);
 
 };

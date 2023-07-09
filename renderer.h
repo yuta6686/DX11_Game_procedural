@@ -106,7 +106,9 @@ private:
 	static ID3D11DepthStencilView* m_LightDepthStencilView;
 	static ID3D11ShaderResourceView* m_LightDepthShaderResourceView;
 
-
+	// レンダリングテクスチャ
+	static ID3D11RenderTargetView* m_PPRenderTargetView;
+	static ID3D11ShaderResourceView* m_PPShaderResourceView;
 
 
 
@@ -147,6 +149,8 @@ public:
 
 	static ID3D11Device* GetDevice( void ){ return m_D3DDevice; }
 	static ID3D11DeviceContext* GetDeviceContext( void ){ return m_ImmediateContext; }
+	static ID3D11ShaderResourceView* GetPPTexture();
+	static void BeginPP();
 
 public:
 #ifdef _DEBUG

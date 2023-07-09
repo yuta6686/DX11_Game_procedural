@@ -138,6 +138,7 @@
   <ItemGroup>
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="field.cpp" />
+    <ClCompile Include="game_object.cpp" />
     <ClCompile Include="imgui\backends\imgui_impl_dx11.cpp" />
     <ClCompile Include="imgui\backends\imgui_impl_win32.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
@@ -153,6 +154,7 @@
     <ClCompile Include="myImgui.cpp" />
     <ClCompile Include="operation_explanation.cpp" />
     <ClCompile Include="renderer.cpp" />
+    <ClCompile Include="scene.cpp" />
     <ClCompile Include="shader.cpp" />
     <ClCompile Include="sky.cpp" />
     <ClCompile Include="stdafx.cpp">

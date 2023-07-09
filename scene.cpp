@@ -1,0 +1,27 @@
+#include "stdafx.h"
+#include "scene.h"
+
+void CScene::CreateGameObject()
+{
+	AddGameObject<CCamera>(LAYER_BEGIN);
+	AddGameObject<CField>(LAYER_3D);
+	//AddGameObject<CSky>();
+	AddGameObject<CWater>(LAYER_RENDERING_TEXTURE);
+
+	const int count = 5;
+	for (int i = -count; i < count; i++)
+	{
+		for (int j = -count; j < count; j++) {
+			auto water2 = AddGameObject<CWater>(LAYER_RENDERING_TEXTURE);
+			water2->SetPosition(XMFLOAT3(50 * i, -3, 50 * j));		
+			water2->SetIsUseImguiFalse();
+		}
+	}
+
+	AddGameObject<CModel>(LAYER_3D);
+	//AddGameObject<CModelNormal>();
+	//AddGameObject<CPolygon>();
+	AddGameObject<OperationExplanation>(LAYER_IMGUI);
+
+}
+
