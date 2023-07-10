@@ -126,6 +126,6 @@ public:
 
 private:
 	void CreateGameObject();
-	void IncrementName(CGameObject* obj);
+	void CreateWater();
 
 };

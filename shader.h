@@ -21,6 +21,7 @@ private:
 	ID3D11VertexShader*     m_VertexShader;
 	ID3D11PixelShader*      m_PixelShader;
 	ID3D11HullShader*		m_HullShader;
+	ID3D11DomainShader*		m_DomainShader;
 	ID3D11InputLayout*      m_VertexLayout;
 
 	ID3D11Buffer*			m_ConstantBuffer;
@@ -34,9 +35,11 @@ private:
 public:
 	void Init( const char* VertexShader, const char* PixelShader );
 	void InitHallShader(const char* HallShader);
+	void InitDomainShader(const char* DomainShader);
 	void Uninit();
 	void Set();
 	void SetHallShader();
+	void SetDomainShader();
 
 	void SetWorldMatrix(XMFLOAT4X4* WorldMatrix) { m_Constant.WorldMatrix = Transpose( WorldMatrix ); }
 	void SetViewMatrix(XMFLOAT4X4* ViewMatrix) { m_Constant.ViewMatrix = Transpose( ViewMatrix ); }

@@ -36,9 +36,6 @@
     <Filter Include="ソース ファイル\Interface">
       <UniqueIdentifier>{7d22944e-ab53-4ca6-a69e-d50002fccf5e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\shader\Hull">
-      <UniqueIdentifier>{b904cee7-d120-40e1-bb6a-348261a9aba2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\game_object\main_object">
       <UniqueIdentifier>{5330d063-6ec9-4279-9137-a8ab47eabee2}</UniqueIdentifier>
     </Filter>
@@ -50,6 +47,9 @@
     </Filter>
     <Filter Include="ソース ファイル\game_object\abstract">
       <UniqueIdentifier>{12a17828-e4b1-4644-b436-ba49828f700a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\shader\Tesselletion">
+      <UniqueIdentifier>{b904cee7-d120-40e1-bb6a-348261a9aba2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -141,6 +141,12 @@
       <Filter>ソース ファイル\game_object\abstract</Filter>
     </ClCompile>
     <ClCompile Include="torii_hull.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="ipolygon.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Tesselation.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -240,6 +246,8 @@
       <Filter>ソース ファイル\game_object\abstract</Filter>
     </ClInclude>
     <ClInclude Include="torii_hull.h" />
+    <ClInclude Include="ipolygon.h" />
+    <ClInclude Include="Tesselation.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
@@ -273,7 +281,16 @@
       <Filter>ソース ファイル\shader</Filter>
     </FxCompile>
     <FxCompile Include="testHS.hlsl">
-      <Filter>ソース ファイル\shader\Hull</Filter>
+      <Filter>ソース ファイル\shader\Tesselletion</Filter>
+    </FxCompile>
+    <FxCompile Include="testDS.hlsl">
+      <Filter>ソース ファイル\shader\Tesselletion</Filter>
+    </FxCompile>
+    <FxCompile Include="TessellationVS.hlsl">
+      <Filter>ソース ファイル\shader\Tesselletion</Filter>
+    </FxCompile>
+    <FxCompile Include="TessellationPS.hlsl">
+      <Filter>ソース ファイル\shader\Tesselletion</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>

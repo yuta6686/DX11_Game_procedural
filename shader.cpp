@@ -103,7 +103,6 @@ void CShader::Init(const char* VertexShader, const char* PixelShader)
 void CShader::InitHallShader(const char* HallShader)
 {	
 	// ハルシェーダ生成
-
 	FILE* file;
 	long int fsize;
 
@@ -114,6 +113,22 @@ void CShader::InitHallShader(const char* HallShader)
 	fclose(file);
 
 	 CRenderer::GetDevice()->CreateHullShader(buffer, fsize, NULL, &m_HullShader);
+	delete[] buffer;
+}
+
+void CShader::InitDomainShader(const char* DomainShader)
+{
+	// ドメインシェーダ生成
+	FILE* file;
+	long int fsize;
+
+	file = fopen(DomainShader, "rb");
+	fsize = _filelength(_fileno(file));
+	unsigned char* buffer = new unsigned char[fsize];
+	fread(buffer, fsize, 1, file);
+	fclose(file);
+
+	CRenderer::GetDevice()->CreateDomainShader(buffer, fsize, NULL, &m_DomainShader);
 	delete[] buffer;
 }
 
@@ -129,6 +144,8 @@ void CShader::Uninit()
 	if (m_VertexLayout)		m_VertexLayout->Release();
 	if (m_VertexShader)		m_VertexShader->Release();
 	if (m_PixelShader)		m_PixelShader->Release();
+	if (m_HullShader)		m_HullShader->Release();
+	if (m_DomainShader)		m_DomainShader->Release();
 	if (m_MaterialBuffer)	m_MaterialBuffer->Release();
 }
 
@@ -166,6 +183,12 @@ void CShader::SetHallShader()
 {
 	if (m_HullShader == nullptr)return;
 	CRenderer::GetDeviceContext()->HSSetShader(m_HullShader, NULL, 0);
+}
+
+void CShader::SetDomainShader()
+{
+	if (m_DomainShader == nullptr)return;
+	CRenderer::GetDeviceContext()->DSSetShader(m_DomainShader, NULL, 0);
 }
 
 void CShader::SetMaterial(MATERIAL Material)

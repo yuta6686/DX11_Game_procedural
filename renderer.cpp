@@ -307,6 +307,12 @@ void CRenderer::Uninit()
 	if( m_SwapChain )			m_SwapChain->Release();
 	if( m_ImmediateContext )	m_ImmediateContext->Release();
 	if( m_D3DDevice )			m_D3DDevice->Release();
+	if (m_PPRenderTargetView)	m_PPRenderTargetView->Release();
+	if (m_LightDepthShaderResourceView) m_LightDepthShaderResourceView->Release();
+	if (m_LightDepthStencilView) m_LightDepthStencilView->Release();
+	if (m_PPShaderResourceView)	m_PPShaderResourceView->Release();
+	if (m_MaterialBuffer)		m_MaterialBuffer->Release();
+
 
 	// Cleanup
 	ImGui_ImplDX11_Shutdown();
