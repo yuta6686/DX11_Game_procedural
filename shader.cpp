@@ -80,6 +80,10 @@ void CShader::Init( const char* VertexShader, const char* PixelShader )
 
 		hBufferDesc.ByteWidth = sizeof(LIGHT);
 		CRenderer::GetDevice()->CreateBuffer(&hBufferDesc, NULL, &m_LightBuffer);
+
+		hBufferDesc.ByteWidth = sizeof(MATERIAL);
+
+		CRenderer::GetDevice()->CreateBuffer(&hBufferDesc, NULL, &m_MaterialBuffer);
 	}
 
 
@@ -108,7 +112,7 @@ void CShader::Uninit()
 	if (m_VertexLayout)		m_VertexLayout->Release();
 	if (m_VertexShader)		m_VertexShader->Release();
 	if (m_PixelShader)		m_PixelShader->Release();
-
+	if(m_MaterialBuffer)	m_MaterialBuffer->Release();
 }
 
 
@@ -139,5 +143,10 @@ void CShader::Set()
 	CRenderer::GetDeviceContext()->PSSetConstantBuffers(1, 1, &m_LightBuffer);
 
 
+}
+
+void CShader::SetMaterial(MATERIAL Material)
+{
+	CRenderer::GetDeviceContext()->UpdateSubresource(m_MaterialBuffer, 0, NULL, &Material, 0, 0);
 }
 

@@ -30,3 +30,4 @@
 #include "shader.h"
 #include "camera.h"
 #include "my_math.h"
+#include "texture.h"

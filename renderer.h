@@ -110,7 +110,7 @@ private:
 	static ID3D11RenderTargetView* m_PPRenderTargetView;
 	static ID3D11ShaderResourceView* m_PPShaderResourceView;
 
-
+	static ID3D11Buffer* m_MaterialBuffer;
 
 /*
 	static XMMATRIX				m_WorldMatrix;
@@ -144,6 +144,7 @@ public:
 	static void SetVertexBuffers( ID3D11Buffer* VertexBuffer, unsigned int stride=sizeof(VERTEX_3D));
 	static void SetIndexBuffer( ID3D11Buffer* IndexBuffer );
 	static void SetTexture( CTexture* Texture, unsigned int Slot=0 );
+	static void SetMaterial(MATERIAL Material);
 	static void SetDepthTexture( unsigned int Slot = 0 );
 	static void DrawIndexed( unsigned int IndexCount, unsigned int StartIndexLocation, int BaseVertexLocation );
 

@@ -12,6 +12,7 @@ ID3D11DeviceContext*    CRenderer::m_ImmediateContext = NULL;
 IDXGISwapChain*         CRenderer::m_SwapChain = NULL;
 ID3D11RenderTargetView* CRenderer::m_RenderTargetView = NULL;
 ID3D11DepthStencilView* CRenderer::m_DepthStencilView = NULL;
+ID3D11Buffer* CRenderer::m_MaterialBuffer = NULL;
 
 ID3D11DepthStencilView* CRenderer::m_LightDepthStencilView = NULL;
 ID3D11ShaderResourceView* CRenderer::m_LightDepthShaderResourceView = NULL;
@@ -21,7 +22,6 @@ ID3D11DepthStencilState* CRenderer::m_DepthStateDisable;
 
 ID3D11RenderTargetView* CRenderer::m_PPRenderTargetView = NULL;
 ID3D11ShaderResourceView* CRenderer::m_PPShaderResourceView = NULL;
-
 
 
 
@@ -381,6 +381,11 @@ void CRenderer::SetTexture( CTexture* Texture, unsigned int Slot )
 	ID3D11ShaderResourceView* srv[1] = { Texture->GetShaderResourceView() };
 	m_ImmediateContext->PSSetShaderResources( Slot, 1, srv );
 
+}
+
+void CRenderer::SetMaterial(MATERIAL Material)
+{
+	m_ImmediateContext->UpdateSubresource(m_MaterialBuffer, 0, NULL, &Material, 0, 0);
 }
 
 void CRenderer::SetDepthTexture(unsigned int Slot)

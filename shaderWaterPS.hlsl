@@ -26,22 +26,12 @@ void main( in  float4 inPosition		: SV_POSITION,
             in float4 inWorldPosition   : POSITION0,
 			in  float4 inNormal			: NORMAL0,
 			in  float4 inDiffuse		: COLOR0,
-			in  float2 inTexCoord		: TEXCOORD0,
-
+			in  float2 inTexCoord		: TEXCOORD0,            
 			out float4 outDiffuse		: SV_Target )
 {
-    /*    トゥーン調
-    float noise = fbm2(inTexCoord * 0.4, 3,Parameter.xy);
-    noise = saturate(noise);
+
     
-    noise = step(sin(pow(noise*Parameter.y, Parameter.z)), Parameter.w);
-    
-    outDiffuse.rgb = lerp(float3(0.7, 0.7, 0.7), float3(0, 0.5, 1),noise);
-    outDiffuse.a = 1.5f - noise;
-    */
-    
-    float2 uv = inTexCoord;
-    // uv.y = 1.0f - uv.y;
+    float2 uv = inTexCoord;    
     uv /= 10;
     
     
@@ -90,7 +80,7 @@ void main( in  float4 inPosition		: SV_POSITION,
     float dist = distance(inWorldPosition.xyz, CameraPosition.xyz);    
     
     // フォグ
-    float fog = (1.0 - exp(-dist * 0.02));    
+    float fog = (1.0 - exp(-dist * 0.02 * HeightYZW.w));    
 
     // 最終出力
     

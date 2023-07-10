@@ -77,3 +77,25 @@ void ParameterLabel::ChangeLabel(const std::string& x_name, const std::string& y
 	z = z_name;
 	w = w_name;
 }
+
+void MyImgui::ImguiPosition(XMFLOAT3* position,float min,float max)
+{
+	if (ImGui::TreeNode("Pos"))
+	{
+		ImGui::DragFloat("pos:x", &position->x, 0.05f, min, max);
+		ImGui::DragFloat("pos:y", &position->y, 0.05f, min, max);
+		ImGui::DragFloat("pos:z", &position->z, 0.05f, min, max);		
+		ImGui::TreePop();
+	}
+}
+
+void MyImgui::ImguiScale(XMFLOAT3* scale, float min, float max)
+{
+	if (ImGui::TreeNode("Scale"))
+	{
+		ImGui::DragFloat("scale:x", &scale->x, 0.05f, min, max);
+		ImGui::DragFloat("scale:y", &scale->y, 0.05f, min, max);
+		ImGui::DragFloat("scale:z", &scale->z, 0.05f, min, max);
+		ImGui::TreePop();
+	}
+}

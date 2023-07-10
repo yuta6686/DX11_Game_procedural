@@ -50,7 +50,7 @@ void main( in  float4 inPosition		: SV_POSITION,
     
     float dle = -dot(lightDir, eyeVector);
     
-    float3 sunLight = float3(1.0, 1.0, 1.0) * 10;
+    float3 sunLight = float3(1.0, 1.0, 1.0) * Parameter2.x;
     float3 wavelength = float3(0.65, 0.57, 0.475);
     float3 wavelength4inv = 1.0 / pow(wavelength, 4);
     

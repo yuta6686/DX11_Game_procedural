@@ -22,7 +22,10 @@ struct ParameterLabel
 };
 struct ParameterEnableAxis
 {
-	bool x, y, z, w = true;
+	bool x = true;
+	bool y = true;
+	bool z = true;
+	bool w = true;
 };
 class MyImguiData 
 {
@@ -51,4 +54,7 @@ public:
 		flags["Water"] = true;
 		flags["Field"] = true;
 	}
+
+	static void ImguiPosition(XMFLOAT3* position, float min = -100, float max = 100);
+	static void ImguiScale( XMFLOAT3* scale, float min = -100, float max = 100);
 };

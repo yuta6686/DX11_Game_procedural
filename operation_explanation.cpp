@@ -4,7 +4,8 @@
 void OperationExplanation::Init()
 {
 	_nodeText = "OperationExplanation";
-	_explanationText = "[WASD]:Camera Move\n[IJKL]:Target Move";	
+	_explanationText = 
+		"[WASD]:Camera Move\n[E]Up[Q]Down\n[IJKL]:Target Move";		
 
 	MyImgui::flags[_nodeText] = true;
 }

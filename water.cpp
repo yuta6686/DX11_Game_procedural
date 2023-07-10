@@ -116,7 +116,7 @@ void CWater::Init()
 	m_Texture->Load("data/TEXTURE/field004.tga");
 
 	m_Parameter.x = 0.0f;
-	m_Parameter.y = 5.0f;
+	m_Parameter.y = 1.5f;
 	m_Parameter.z = 2.0f;
 	m_Parameter.w = 0.6f;
 	
@@ -204,7 +204,7 @@ void CWater::DrawImgui()
 
 	if (ImGui::TreeNode(m_Name.c_str())) {
 
-		ImGui::DragFloat("y", &m_Parameter.y, 0.01f, -10, 10);
+		ImGui::DragFloat("y", &m_Parameter.y, 0.01f, -10, 100);
 		ImGui::DragFloat("z", &m_Parameter.z, 0.01f, -10, 10);
 		ImGui::DragFloat("w", &m_Parameter.w, 0.01f, 0, 1);
 

@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "scene.h"
 
+#include "torii.h"
+#include "spheres.h"
+
 void CScene::CreateGameObject()
 {
 	AddGameObject<CCamera>(LAYER_BEGIN);
@@ -22,6 +25,7 @@ void CScene::CreateGameObject()
 	//AddGameObject<CModelNormal>();
 	//AddGameObject<CPolygon>();
 	AddGameObject<OperationExplanation>(LAYER_IMGUI);
-
+	AddGameObject<Torii>(LAYER_3D);
+	AddGameObject<Spheres>(LAYER_3D);
 }
 

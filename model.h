@@ -49,7 +49,7 @@ private:
 	///CTexture*		m_TextureFur;
 	
 	MyImguiData _mydata;
-	std::string m_Name = "Sky(Model)";
+	std::string m_Name = "Sky(Model)";	
 
 public:
 	void Init();

@@ -33,7 +33,7 @@ void main( in  float4 inPosition		: POSITION0,
 	wvp = mul(World, View);
 	wvp = mul(wvp, Projection);
 	
-    inPosition.y = fbm2(inTexCoord * Parameter.w, 6, Parameter.x) * Parameter2.x;
+    inPosition.y = fbm2(inTexCoord * Parameter.w, 6, Parameter.x) * Parameter.y;
 
 	outPosition = mul(inPosition, wvp);
     outWorldPosition = mul(inPosition, World);

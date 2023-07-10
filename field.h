@@ -22,6 +22,7 @@ private:
 
 	CShader*		m_Shader;
 
+	MyImguiData _myData;
 	XMFLOAT4 m_HeightOffsetZW;
 	std::string m_Name = "Field";
 

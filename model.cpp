@@ -33,11 +33,13 @@ void CModel::Init()
 	m_TextureFur->Load("data/TEXTURE/fur.tga");*/
 
 
+
 	_mydata.SetMyFlag(m_Name, true);
 
 
 
 	_mydata._parameter = { 1.0f,-1.0f,1.0f ,1.0f };
+	_mydata._parameter2 = { 2.5f,1.0f,1.0f ,1.0f };
 
 	_mydata.SetMinMax(MyMath::PI);
 
@@ -55,6 +57,8 @@ void CModel::Uninit()
 	m_Shader->Uninit();
 	delete m_Shader;
 
+
+
 	Unload();
 
 }
@@ -63,23 +67,23 @@ void CModel::Uninit()
 void CModel::Update()
 {
 
-	if (CInput::GetKeyPress('A'))
-		m_Position.x -= 0.1f;
-	if (CInput::GetKeyPress('D'))
-		m_Position.x += 0.1f;
-	if (CInput::GetKeyPress('W'))
-		m_Position.z += 0.1f;
-	if (CInput::GetKeyPress('S'))
-		m_Position.z -= 0.1f;
+	//if (CInput::GetKeyPress('A'))
+	//	m_Position.x -= 0.1f;
+	//if (CInput::GetKeyPress('D'))
+	//	m_Position.x += 0.1f;
+	//if (CInput::GetKeyPress('W'))
+	//	m_Position.z += 0.1f;
+	//if (CInput::GetKeyPress('S'))
+	//	m_Position.z -= 0.1f;
 
-	if (CInput::GetKeyPress('Q'))
-		m_Rotation.y -= 0.05f;
-	if (CInput::GetKeyPress('E'))
-		m_Rotation.y += 0.05f;
-	if (CInput::GetKeyPress('R'))
-		m_Rotation.x -= 0.05f;
-	if (CInput::GetKeyPress('F'))
-		m_Rotation.x += 0.05f;
+	//if (CInput::GetKeyPress('Q'))
+	//	m_Rotation.y -= 0.05f;
+	//if (CInput::GetKeyPress('E'))
+	//	m_Rotation.y += 0.05f;
+	//if (CInput::GetKeyPress('R'))
+	//	m_Rotation.x -= 0.05f;
+	//if (CInput::GetKeyPress('F'))
+	//	m_Rotation.x += 0.05f;
 
 	_mydata._parameter.w += 1.0f / 60.0f;
 
@@ -116,6 +120,7 @@ void CModel::Draw()
 
 	//トゥーンテクスチャ
 	//CRenderer::SetTexture(m_TextureFur, 1);
+
 
 
 
@@ -319,9 +324,13 @@ void CModel::Unload()
 void CModel::DrawImgui()
 {
 	if (!_mydata.GetMyFlag(m_Name))return;
+	if (ImGui::TreeNode(m_Name.c_str()))
+	{
+		_mydata.DragFloatParameter(m_Name);	
+		ImGui::DragFloat("SunLightStrength", &_mydata._parameter2.x, 0.05f, 0.0f, 100.0f);
 
-	_mydata.DragFloatParameter(m_Name);
-	ImGui::Text("w:%.2f", _mydata._parameter.w);
+		ImGui::TreePop();
+	}
 }
 
 
