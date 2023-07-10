@@ -172,6 +172,7 @@
     <ClCompile Include="renderer.cpp" />
     <ClCompile Include="scene.cpp" />
     <ClCompile Include="shader.cpp" />
+    <ClCompile Include="single_model.cpp" />
     <ClCompile Include="sky.cpp" />
     <ClCompile Include="spheres.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -183,6 +184,7 @@
     <ClCompile Include="texture.cpp" />
     <ClCompile Include="polygon.cpp" />
     <ClCompile Include="torii.cpp" />
+    <ClCompile Include="torii_hull.cpp" />
     <ClCompile Include="tree.cpp" />
     <ClCompile Include="water.cpp" />
   </ItemGroup>
@@ -207,14 +209,17 @@
     <ClInclude Include="my_math.h" />
     <ClInclude Include="operation_explanation.h" />
     <ClInclude Include="renderer.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="shader.h" />
+    <ClInclude Include="single_model.h" />
     <ClInclude Include="sky.h" />
     <ClInclude Include="spheres.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="texture.h" />
     <ClInclude Include="polygon.h" />
     <ClInclude Include="torii.h" />
+    <ClInclude Include="torii_hull.h" />
     <ClInclude Include="tree.h" />
     <ClInclude Include="water.h" />
   </ItemGroup>
@@ -332,6 +337,19 @@
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).cso</ObjectFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).cso</ObjectFileOutput>
     </FxCompile>
+    <FxCompile Include="testHS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Hull</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Hull</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Hull</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Hull</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="DX11_Game.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

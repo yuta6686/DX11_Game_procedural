@@ -8,7 +8,7 @@
 
 
 
-void CShader::Init( const char* VertexShader, const char* PixelShader )
+void CShader::Init(const char* VertexShader, const char* PixelShader)
 {
 
 	// 頂点シェーダ生成
@@ -87,7 +87,7 @@ void CShader::Init( const char* VertexShader, const char* PixelShader )
 	}
 
 
-	m_Light.Direction = XMFLOAT4( 1.0f, -1.0f, 1.0f, 0.0f );
+	m_Light.Direction = XMFLOAT4(1.0f, -1.0f, 1.0f, 0.0f);
 
 	XMVECTOR direction;
 	direction = XMLoadFloat4(&m_Light.Direction);
@@ -98,6 +98,23 @@ void CShader::Init( const char* VertexShader, const char* PixelShader )
 	m_Light.Diffuse = COLOR(1.0f, 1.0f, 1.0f, 1.0f);
 	m_Light.Ambient = COLOR(1.0f, 1.0f, 1.0f, 1.0f);
 
+}
+
+void CShader::InitHallShader(const char* HallShader)
+{	
+	// ハルシェーダ生成
+
+	FILE* file;
+	long int fsize;
+
+	file = fopen(HallShader, "rb");
+	fsize = _filelength(_fileno(file));
+	unsigned char* buffer = new unsigned char[fsize];
+	fread(buffer, fsize, 1, file);
+	fclose(file);
+
+	 CRenderer::GetDevice()->CreateHullShader(buffer, fsize, NULL, &m_HullShader);
+	delete[] buffer;
 }
 
 
@@ -112,7 +129,7 @@ void CShader::Uninit()
 	if (m_VertexLayout)		m_VertexLayout->Release();
 	if (m_VertexShader)		m_VertexShader->Release();
 	if (m_PixelShader)		m_PixelShader->Release();
-	if(m_MaterialBuffer)	m_MaterialBuffer->Release();
+	if (m_MaterialBuffer)	m_MaterialBuffer->Release();
 }
 
 
@@ -143,6 +160,12 @@ void CShader::Set()
 	CRenderer::GetDeviceContext()->PSSetConstantBuffers(1, 1, &m_LightBuffer);
 
 
+}
+
+void CShader::SetHallShader()
+{
+	if (m_HullShader == nullptr)return;
+	CRenderer::GetDeviceContext()->HSSetShader(m_HullShader, NULL, 0);
 }
 
 void CShader::SetMaterial(MATERIAL Material)

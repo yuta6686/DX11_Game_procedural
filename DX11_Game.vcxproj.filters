@@ -36,6 +36,21 @@
     <Filter Include="ソース ファイル\Interface">
       <UniqueIdentifier>{7d22944e-ab53-4ca6-a69e-d50002fccf5e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\shader\Hull">
+      <UniqueIdentifier>{b904cee7-d120-40e1-bb6a-348261a9aba2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\game_object\main_object">
+      <UniqueIdentifier>{5330d063-6ec9-4279-9137-a8ab47eabee2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\game_object\2d">
+      <UniqueIdentifier>{5dfee851-9813-4e7c-9232-91621b41694e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\game_object\other_object">
+      <UniqueIdentifier>{24fe3985-3aae-4dee-9eb0-836620b3e933}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\game_object\abstract">
+      <UniqueIdentifier>{12a17828-e4b1-4644-b436-ba49828f700a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -47,32 +62,14 @@
     <ClCompile Include="renderer.cpp">
       <Filter>ソース ファイル\system</Filter>
     </ClCompile>
-    <ClCompile Include="field.cpp">
-      <Filter>ソース ファイル\game_object</Filter>
-    </ClCompile>
     <ClCompile Include="texture.cpp">
       <Filter>ソース ファイル\resource</Filter>
-    </ClCompile>
-    <ClCompile Include="camera.cpp">
-      <Filter>ソース ファイル\game_object</Filter>
-    </ClCompile>
-    <ClCompile Include="polygon.cpp">
-      <Filter>ソース ファイル\game_object</Filter>
-    </ClCompile>
-    <ClCompile Include="model.cpp">
-      <Filter>ソース ファイル\game_object</Filter>
     </ClCompile>
     <ClCompile Include="input.cpp">
       <Filter>ソース ファイル\system</Filter>
     </ClCompile>
     <ClCompile Include="shader.cpp">
       <Filter>ソース ファイル\shader</Filter>
-    </ClCompile>
-    <ClCompile Include="sky.cpp">
-      <Filter>ソース ファイル\game_object</Filter>
-    </ClCompile>
-    <ClCompile Include="water.cpp">
-      <Filter>ソース ファイル\game_object</Filter>
     </ClCompile>
     <ClCompile Include="imgui\backends\imgui_impl_dx11.cpp">
       <Filter>ImGui\backends</Filter>
@@ -101,25 +98,49 @@
     <ClCompile Include="imodel.cpp">
       <Filter>ソース ファイル\Interface</Filter>
     </ClCompile>
-    <ClCompile Include="tree.cpp">
-      <Filter>ソース ファイル\game_object</Filter>
-    </ClCompile>
-    <ClCompile Include="operation_explanation.cpp">
-      <Filter>ソース ファイル\game_object</Filter>
-    </ClCompile>
-    <ClCompile Include="game_object.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="scene.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="myImgui.cpp">
       <Filter>ソース ファイル\imgui</Filter>
     </ClCompile>
+    <ClCompile Include="camera.cpp">
+      <Filter>ソース ファイル\game_object\main_object</Filter>
+    </ClCompile>
+    <ClCompile Include="field.cpp">
+      <Filter>ソース ファイル\game_object\main_object</Filter>
+    </ClCompile>
+    <ClCompile Include="model.cpp">
+      <Filter>ソース ファイル\game_object\main_object</Filter>
+    </ClCompile>
+    <ClCompile Include="polygon.cpp">
+      <Filter>ソース ファイル\game_object\main_object</Filter>
+    </ClCompile>
+    <ClCompile Include="sky.cpp">
+      <Filter>ソース ファイル\game_object\main_object</Filter>
+    </ClCompile>
+    <ClCompile Include="water.cpp">
+      <Filter>ソース ファイル\game_object\main_object</Filter>
+    </ClCompile>
     <ClCompile Include="torii.cpp">
-      <Filter>ソース ファイル\game_object</Filter>
+      <Filter>ソース ファイル\game_object\other_object</Filter>
+    </ClCompile>
+    <ClCompile Include="tree.cpp">
+      <Filter>ソース ファイル\game_object\other_object</Filter>
+    </ClCompile>
+    <ClCompile Include="operation_explanation.cpp">
+      <Filter>ソース ファイル\game_object\2d</Filter>
+    </ClCompile>
+    <ClCompile Include="game_object.cpp">
+      <Filter>ソース ファイル\game_object\main_object</Filter>
+    </ClCompile>
+    <ClCompile Include="scene.cpp">
+      <Filter>ソース ファイル\system</Filter>
     </ClCompile>
     <ClCompile Include="spheres.cpp">
+      <Filter>ソース ファイル\game_object\other_object</Filter>
+    </ClCompile>
+    <ClCompile Include="single_model.cpp">
+      <Filter>ソース ファイル\game_object\abstract</Filter>
+    </ClCompile>
+    <ClCompile Include="torii_hull.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -133,23 +154,8 @@
     <ClInclude Include="renderer.h">
       <Filter>ソース ファイル\system</Filter>
     </ClInclude>
-    <ClInclude Include="field.h">
-      <Filter>ソース ファイル\game_object</Filter>
-    </ClInclude>
     <ClInclude Include="texture.h">
       <Filter>ソース ファイル\resource</Filter>
-    </ClInclude>
-    <ClInclude Include="camera.h">
-      <Filter>ソース ファイル\game_object</Filter>
-    </ClInclude>
-    <ClInclude Include="polygon.h">
-      <Filter>ソース ファイル\game_object</Filter>
-    </ClInclude>
-    <ClInclude Include="model.h">
-      <Filter>ソース ファイル\game_object</Filter>
-    </ClInclude>
-    <ClInclude Include="game_object.h">
-      <Filter>ソース ファイル\game_object</Filter>
     </ClInclude>
     <ClInclude Include="scene.h">
       <Filter>ソース ファイル\scene</Filter>
@@ -159,12 +165,6 @@
     </ClInclude>
     <ClInclude Include="shader.h">
       <Filter>ソース ファイル\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="sky.h">
-      <Filter>ソース ファイル\game_object</Filter>
-    </ClInclude>
-    <ClInclude Include="water.h">
-      <Filter>ソース ファイル\game_object</Filter>
     </ClInclude>
     <ClInclude Include="imgui\backends\imgui_impl_dx11.h">
       <Filter>ImGui\backends</Filter>
@@ -202,16 +202,44 @@
     <ClInclude Include="my_math.h">
       <Filter>ソース ファイル\system</Filter>
     </ClInclude>
-    <ClInclude Include="operation_explanation.h">
-      <Filter>ソース ファイル\game_object</Filter>
+    <ClInclude Include="camera.h">
+      <Filter>ソース ファイル\game_object\main_object</Filter>
     </ClInclude>
-    <ClInclude Include="tree.h">
-      <Filter>ソース ファイル\game_object</Filter>
+    <ClInclude Include="field.h">
+      <Filter>ソース ファイル\game_object\main_object</Filter>
+    </ClInclude>
+    <ClInclude Include="game_object.h">
+      <Filter>ソース ファイル\game_object\main_object</Filter>
+    </ClInclude>
+    <ClInclude Include="model.h">
+      <Filter>ソース ファイル\game_object\main_object</Filter>
+    </ClInclude>
+    <ClInclude Include="polygon.h">
+      <Filter>ソース ファイル\game_object\main_object</Filter>
+    </ClInclude>
+    <ClInclude Include="sky.h">
+      <Filter>ソース ファイル\game_object\main_object</Filter>
+    </ClInclude>
+    <ClInclude Include="water.h">
+      <Filter>ソース ファイル\game_object\main_object</Filter>
     </ClInclude>
     <ClInclude Include="torii.h">
-      <Filter>ソース ファイル\game_object</Filter>
+      <Filter>ソース ファイル\game_object\other_object</Filter>
     </ClInclude>
-    <ClInclude Include="spheres.h" />
+    <ClInclude Include="tree.h">
+      <Filter>ソース ファイル\game_object\other_object</Filter>
+    </ClInclude>
+    <ClInclude Include="operation_explanation.h">
+      <Filter>ソース ファイル\game_object\2d</Filter>
+    </ClInclude>
+    <ClInclude Include="spheres.h">
+      <Filter>ソース ファイル\game_object\other_object</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="single_model.h">
+      <Filter>ソース ファイル\game_object\abstract</Filter>
+    </ClInclude>
+    <ClInclude Include="torii_hull.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
@@ -244,5 +272,13 @@
     <FxCompile Include="InstancingPS.hlsl">
       <Filter>ソース ファイル\shader</Filter>
     </FxCompile>
+    <FxCompile Include="testHS.hlsl">
+      <Filter>ソース ファイル\shader\Hull</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="DX11_Game.rc">
+      <Filter>リソース ファイル</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
