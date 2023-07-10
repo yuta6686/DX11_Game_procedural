@@ -36,10 +36,10 @@ void main( in  float4 inPosition		: SV_POSITION,
     
     
    // 法線マッピング
-    float yx1 = fbm2(uv * Parameter.w + float2(0.0001, 0.0), 4,Parameter.x) * Parameter.y;
-    float yx2 = fbm2(uv * Parameter.w - float2(0.0001, 0.0), 4,Parameter.x) * Parameter.y;
-    float yz1 = fbm2(uv * Parameter.w + float2(0.0, 0.0001), 4,Parameter.x) * Parameter.y;
-    float yz2 = fbm2(uv * Parameter.w - float2(0.0, 0.0001), 4,Parameter.x) * Parameter.y;
+    float yx1 = fbm2(uv * Parameter.w + float2(0.0001, 0.0), 4,Parameter.x) * HeightYZW.x;
+    float yx2 = fbm2(uv * Parameter.w - float2(0.0001, 0.0), 4,Parameter.x) * HeightYZW.x;
+    float yz1 = fbm2(uv * Parameter.w + float2(0.0, 0.0001), 4,Parameter.x) * HeightYZW.x;
+    float yz2 = fbm2(uv * Parameter.w - float2(0.0, 0.0001), 4, Parameter.x) *HeightYZW.x;
     float3 vx = float3(0.01, yx2 - yx1, 0.0);
     float3 vz = float3(0.0, yz2 - yz1, 0.01);
     

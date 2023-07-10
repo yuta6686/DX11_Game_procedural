@@ -8,6 +8,7 @@
 #include "camera.h"
 
 #include "input.h"
+#include"model.h"
 
 
 
@@ -156,6 +157,7 @@ void CField::Draw()
 	m_Shader->SetCameraPosition(&camera->GetPosition());
 	m_Shader->SetParameter(_myData._parameter);
 	m_Shader->SetParameter2(m_HeightOffsetZW);
+	m_Shader->SetLightParameter(CModel::_mydata._lightParameter);
 
 	m_Shader->Set();
 

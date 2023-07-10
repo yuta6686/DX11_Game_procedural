@@ -16,6 +16,7 @@ cbuffer ConstatntBuffer : register(b0)
     float4 CameraPosition;
     float4 Parameter;
     float4 HeightYZW;
+    float4 LightParameter;
 }
 
 float3 gradation(float param);
@@ -48,7 +49,7 @@ void main(in float4 inPosition : SV_POSITION,
     
     
     // ライティング
-    float3 lightDir = normalize(float3(1.0, -1.0, 0.7));
+    float3 lightDir = normalize(LightParameter.xyz);
     float3 light = 0.5 - dot(normal, lightDir) * 0.5;
     
     // 視線ベクトル
@@ -66,6 +67,20 @@ void main(in float4 inPosition : SV_POSITION,
     float fre = pow(dot(eye, normal), 4.0);
     float fresnel = saturate(1.0 + dot(eye, normal));
     fresnel = 0.05 + (Parameter.w - 0.05) * pow(fresnel, 2.0f);
+           
+    // 大気散乱    
+    float dle = -dot(lightDir, eye);
+    float3 sunLight = float3(1.0, 1.0, 1.0) * 5;
+    float3 wavelength = float3(0.65, 0.57, 0.475);
+    float3 wavelength4inv = 1.0 / pow(wavelength, 4);
+    
+    float atomDensityEye = 0.05 + pow(1.0 - eye.y, 20) * 0.95;
+    float atomDensityLight = 0.05 + pow(1.0 + lightDir.y, 20) * 0.95;
+    float3 scatteringLight = sunLight *
+                exp(-atomDensityLight * atomDensityEye * wavelength4inv * 1.0);
+    
+    float rayleighPhase = 0.5 + dle * dle;
+    outDiffuse.rgb += scatteringLight * atomDensityEye * wavelength4inv * rayleighPhase * 0.05;
     
     // 距離
     float dist = distance(inWorldPosition.xyz, CameraPosition.xyz);

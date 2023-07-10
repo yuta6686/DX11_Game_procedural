@@ -12,6 +12,7 @@ struct CONSTANT
 	XMFLOAT4				CameraPosition;
 	XMFLOAT4				Parameter;
 	XMFLOAT4				Parameter2;
+	XMFLOAT4				LightParamter;
 };
 
 class CShader
@@ -40,6 +41,7 @@ public:
 	void SetMaterial(MATERIAL Material);
 	void SetParameter(XMFLOAT4 Parameter) { m_Constant.Parameter = Parameter; }
 	void SetParameter2(XMFLOAT4 xyzw) { m_Constant.Parameter2 = xyzw; }
+	void SetLightParameter(XMFLOAT4 lparam) { m_Constant.LightParamter = lparam; }
 
 	void SetCameraPosition(XMFLOAT3* CameraPosition)
 	{

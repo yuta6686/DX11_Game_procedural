@@ -15,6 +15,7 @@ cbuffer ConstatntBuffer : register(b0)
     float4 CameraPosition;
     float4 Parameter;
     float4 Parameter2;
+    float4 LightParameter;
 }
 
 
@@ -43,14 +44,14 @@ void main( in  float4 inPosition		: SV_POSITION,
     outDiffuse.rgb = 0.0f;
     
     //float3 lightDir = float3(cos(Parameter.w), sin(Parameter.w), 0.0);
-    float3 lightDir = Parameter.xyz;
+    float3 lightDir = LightParameter.xyz;
     lightDir = normalize(lightDir);
     
     float3 eyeVector = normalize(inWorldPosition.xyz - CameraPosition.xyz);
     
     float dle = -dot(lightDir, eyeVector);
-    
-    float3 sunLight = float3(1.0, 1.0, 1.0) * Parameter2.x;
+        
+    float3 sunLight = float3(1.0, 1.0, 1.0) * LightParameter.w;
     float3 wavelength = float3(0.65, 0.57, 0.475);
     float3 wavelength4inv = 1.0 / pow(wavelength, 4);
     
@@ -60,7 +61,7 @@ void main( in  float4 inPosition		: SV_POSITION,
                 exp(-atomDensityLight * atomDensityEye * wavelength4inv * 1.0);
     
     float rayleighPhase = 0.5 + dle * dle;
-    outDiffuse.rgb += scatteringLight * atomDensityEye * wavelength4inv * rayleighPhase * 0.1;
+    outDiffuse.rgb += scatteringLight * atomDensityEye * wavelength4inv * rayleighPhase * 0.01;
     
     // É~Å[éUóê
     float g = 0.990;

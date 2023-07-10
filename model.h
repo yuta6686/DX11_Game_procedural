@@ -48,10 +48,10 @@ private:
 	CShader*		m_Shader;
 	///CTexture*		m_TextureFur;
 	
-	MyImguiData _mydata;
 	std::string m_Name = "Sky(Model)";	
 
 public:
+	inline static MyImguiData _mydata;
 	void Init();
 	void Uninit();
 	void Update();

@@ -40,6 +40,7 @@ void CModel::Init()
 
 	_mydata._parameter = { 1.0f,-1.0f,1.0f ,1.0f };
 	_mydata._parameter2 = { 2.5f,1.0f,1.0f ,1.0f };
+	_mydata._lightParameter = { 1.0f,-1.0f,1.0f ,10.0f };
 
 	_mydata.SetMinMax(MyMath::PI);
 
@@ -114,6 +115,7 @@ void CModel::Draw()
 
 	m_Shader->SetParameter(_mydata._parameter);
 	m_Shader->SetParameter2(_mydata._parameter2);
+	m_Shader->SetLightParameter(_mydata._lightParameter);
 
 	m_Shader->Set();
 
@@ -241,7 +243,18 @@ void CModel::DrawShadow()
 
 }
 
+void CModel::DrawImgui()
+{
+	if (!_mydata.GetMyFlag(m_Name))return;
+	if (ImGui::TreeNode(m_Name.c_str()))
+	{
+		_mydata.DragFloatParameter(m_Name + "Param");
+		_mydata.DragFloatParameter2(m_Name + "Param2");
+		_mydata.DragFloatLightParamter(m_Name + "Light");		
 
+		ImGui::TreePop();
+	}
+}
 
 
 
@@ -321,17 +334,7 @@ void CModel::Unload()
 
 }
 
-void CModel::DrawImgui()
-{
-	if (!_mydata.GetMyFlag(m_Name))return;
-	if (ImGui::TreeNode(m_Name.c_str()))
-	{
-		_mydata.DragFloatParameter(m_Name);	
-		ImGui::DragFloat("SunLightStrength", &_mydata._parameter2.x, 0.05f, 0.0f, 100.0f);
 
-		ImGui::TreePop();
-	}
-}
 
 
 

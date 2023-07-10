@@ -49,6 +49,18 @@ void MyImguiData::DragFloatParameter2(const std::string& name)
 	}
 }
 
+void MyImguiData::DragFloatLightParamter(const std::string& name)
+{
+	if (ImGui::TreeNode(name.c_str()))
+	{
+		ImGui::DragFloat(_labelLight.x.c_str(), &_lightParameter.x, 0.05f, -MyMath::PI, MyMath::PI);
+		ImGui::DragFloat(_labelLight.y.c_str(), &_lightParameter.y, 0.05f, -MyMath::PI, MyMath::PI);
+		ImGui::DragFloat(_labelLight.z.c_str(), &_lightParameter.z, 0.05f, -MyMath::PI, MyMath::PI);
+		ImGui::DragFloat(_labelLight.w.c_str(), &_lightParameter.w, 0.05f, 1, 100);
+		ImGui::TreePop();
+	}
+}
+
 void ParameterLabel::ChangeLavel(const LABEL& label, const std::string& name)
 {
 	switch (label)
