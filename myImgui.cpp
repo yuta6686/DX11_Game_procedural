@@ -49,6 +49,18 @@ void MyImguiData::DragFloatParameter2(const std::string& name)
 	}
 }
 
+void MyImguiData::DragFloatLightParamter(const std::string& name)
+{
+	if (ImGui::TreeNode(name.c_str()))
+	{
+		ImGui::DragFloat(_labelLight.x.c_str(), &_lightParameter.x, 0.05f, -MyMath::PI, MyMath::PI);
+		ImGui::DragFloat(_labelLight.y.c_str(), &_lightParameter.y, 0.05f, -MyMath::PI, MyMath::PI);
+		ImGui::DragFloat(_labelLight.z.c_str(), &_lightParameter.z, 0.05f, -MyMath::PI, MyMath::PI);
+		ImGui::DragFloat(_labelLight.w.c_str(), &_lightParameter.w, 0.05f, 1, 100);
+		ImGui::TreePop();
+	}
+}
+
 void ParameterLabel::ChangeLavel(const LABEL& label, const std::string& name)
 {
 	switch (label)
@@ -76,4 +88,26 @@ void ParameterLabel::ChangeLabel(const std::string& x_name, const std::string& y
 	y = y_name;
 	z = z_name;
 	w = w_name;
+}
+
+void MyImgui::ImguiPosition(XMFLOAT3* position,float min,float max)
+{
+	if (ImGui::TreeNode("Pos"))
+	{
+		ImGui::DragFloat("pos:x", &position->x, 0.05f, min, max);
+		ImGui::DragFloat("pos:y", &position->y, 0.05f, min, max);
+		ImGui::DragFloat("pos:z", &position->z, 0.05f, min, max);		
+		ImGui::TreePop();
+	}
+}
+
+void MyImgui::ImguiScale(XMFLOAT3* scale, float min, float max)
+{
+	if (ImGui::TreeNode("Scale"))
+	{
+		ImGui::DragFloat("scale:x", &scale->x, 0.05f, min, max);
+		ImGui::DragFloat("scale:y", &scale->y, 0.05f, min, max);
+		ImGui::DragFloat("scale:z", &scale->z, 0.05f, min, max);
+		ImGui::TreePop();
+	}
 }

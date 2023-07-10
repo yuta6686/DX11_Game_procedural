@@ -12,12 +12,16 @@ ID3D11DeviceContext*    CRenderer::m_ImmediateContext = NULL;
 IDXGISwapChain*         CRenderer::m_SwapChain = NULL;
 ID3D11RenderTargetView* CRenderer::m_RenderTargetView = NULL;
 ID3D11DepthStencilView* CRenderer::m_DepthStencilView = NULL;
+ID3D11Buffer* CRenderer::m_MaterialBuffer = NULL;
 
 ID3D11DepthStencilView* CRenderer::m_LightDepthStencilView = NULL;
 ID3D11ShaderResourceView* CRenderer::m_LightDepthShaderResourceView = NULL;
 
 ID3D11DepthStencilState* CRenderer::m_DepthStateEnable;
 ID3D11DepthStencilState* CRenderer::m_DepthStateDisable;
+
+ID3D11RenderTargetView* CRenderer::m_PPRenderTargetView = NULL;
+ID3D11ShaderResourceView* CRenderer::m_PPShaderResourceView = NULL;
 
 
 
@@ -254,6 +258,43 @@ void CRenderer::Init()
 	ImGui_ImplDX11_Init(m_D3DDevice, m_ImmediateContext);
 
 	io.Fonts->AddFontFromFileTTF("data/FONT/NotoSansJP-ExtraBold.ttf", 24);
+
+	{ 
+		//テクスチャー作成
+		ID3D11Texture2D* ppTexture = NULL;
+	D3D11_TEXTURE2D_DESC td; //テクスチャ作成用デスクリプタ構造体変数
+	ZeroMemory(&td, sizeof(td)); //構造体を０初期化
+
+	td.Width = sd.BufferDesc.Width; //構造体sdはInit関数の最初で作られている。
+	td.Height = sd.BufferDesc.Height;//バックバッファの情報が格納されている
+	td.MipLevels = 1;//ミップマップの数 0は限界まで作る
+	td.ArraySize = 1;
+	td.Format = DXGI_FORMAT_R8G8B8A8_UNORM; //ピクセルフォーマット
+	td.SampleDesc = sd.SampleDesc;
+	td.Usage = D3D11_USAGE_DEFAULT;
+	//使用法のフラグを設定
+	td.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
+	td.CPUAccessFlags = 0;
+	td.MiscFlags = 0;
+	//構造体の設定に従ってテクスチャ領域を作成
+	m_D3DDevice->CreateTexture2D(&td, NULL, &ppTexture);
+
+	//レンダーターゲットビュー作成
+	D3D11_RENDER_TARGET_VIEW_DESC rtvd;
+	ZeroMemory(&rtvd, sizeof(rtvd));
+	rtvd.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	rtvd.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
+	m_D3DDevice->CreateRenderTargetView(ppTexture, &rtvd,
+		&m_PPRenderTargetView);
+	//シェーダーリソースビュー作成
+	D3D11_SHADER_RESOURCE_VIEW_DESC srvd;
+	ZeroMemory(&srvd, sizeof(srvd));
+	srvd.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	srvd.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+	srvd.Texture2D.MipLevels = 1;
+	m_D3DDevice->CreateShaderResourceView(ppTexture, &srvd,
+		&m_PPShaderResourceView);
+	}
 }
 
 
@@ -342,6 +383,11 @@ void CRenderer::SetTexture( CTexture* Texture, unsigned int Slot )
 
 }
 
+void CRenderer::SetMaterial(MATERIAL Material)
+{
+	m_ImmediateContext->UpdateSubresource(m_MaterialBuffer, 0, NULL, &Material, 0, 0);
+}
+
 void CRenderer::SetDepthTexture(unsigned int Slot)
 {
 
@@ -358,6 +404,25 @@ void CRenderer::DrawIndexed( unsigned int IndexCount, unsigned int StartIndexLoc
 	m_ImmediateContext->IASetPrimitiveTopology( D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST );
 	m_ImmediateContext->DrawIndexed( IndexCount, StartIndexLocation, BaseVertexLocation );
 
+}
+
+ID3D11ShaderResourceView* CRenderer::GetPPTexture()
+{
+	return m_PPShaderResourceView;
+}
+
+void CRenderer::BeginPP()
+{
+	//レンダ―ターゲットとZバッファのセット
+	m_ImmediateContext->OMSetRenderTargets(1, &m_PPRenderTargetView,
+		m_DepthStencilView);
+	//わかりやすいようにレンダ―ターゲットを緑でクリアしておく
+	float ClearColor[4] = { 0.0f, 0.5f, 0.0f, 1.0f };
+	m_ImmediateContext->ClearRenderTargetView(m_PPRenderTargetView,
+		ClearColor);
+	//Zバッファのクリア
+	m_ImmediateContext->ClearDepthStencilView(m_DepthStencilView,
+		D3D11_CLEAR_DEPTH, 1.0f, 0);
 }
 
 #ifdef _DEBUG

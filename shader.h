@@ -12,6 +12,7 @@ struct CONSTANT
 	XMFLOAT4				CameraPosition;
 	XMFLOAT4				Parameter;
 	XMFLOAT4				Parameter2;
+	XMFLOAT4				LightParamter;
 };
 
 class CShader
@@ -27,6 +28,8 @@ private:
 	ID3D11Buffer*			m_LightBuffer;
 	LIGHT					m_Light;
 
+	ID3D11Buffer*			m_MaterialBuffer;
+
 public:
 	void Init( const char* VertexShader, const char* PixelShader );
 	void Uninit();
@@ -35,8 +38,10 @@ public:
 	void SetWorldMatrix(XMFLOAT4X4* WorldMatrix) { m_Constant.WorldMatrix = Transpose( WorldMatrix ); }
 	void SetViewMatrix(XMFLOAT4X4* ViewMatrix) { m_Constant.ViewMatrix = Transpose( ViewMatrix ); }
 	void SetProjectionMatrix(XMFLOAT4X4* ProjectionMatrix) { m_Constant.ProjectionMatrix = Transpose( ProjectionMatrix ); }
+	void SetMaterial(MATERIAL Material);
 	void SetParameter(XMFLOAT4 Parameter) { m_Constant.Parameter = Parameter; }
 	void SetParameter2(XMFLOAT4 xyzw) { m_Constant.Parameter2 = xyzw; }
+	void SetLightParameter(XMFLOAT4 lparam) { m_Constant.LightParamter = lparam; }
 
 	void SetCameraPosition(XMFLOAT3* CameraPosition)
 	{

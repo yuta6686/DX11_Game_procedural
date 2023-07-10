@@ -46,10 +46,13 @@ void CManager::Draw()
 
 	m_Scene->DrawShadow();
 
+	CRenderer::BeginPP();
+
+	m_Scene->Draw();
 
 	CRenderer::Begin();
 
-	m_Scene->Draw();
+	m_Scene->DrawUseRenderingTexture();
 
 #ifdef _DEBUG
 	// CRenderer::imguiDraw();

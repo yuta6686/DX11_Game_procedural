@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "imodel.h"
 
+
 void IModel::LoadObj(const char* FileName, MODEL* Model)
 {
 	XMFLOAT3* positionArray;
@@ -394,8 +395,8 @@ void IModel::Load(const char* FileName)
 
 			m_SubsetArray[i].Material.Material = model.SubsetArray[i].Material.Material;
 
-			//m_SubsetArray[i].Material.Texture = new CTexture();
-			//m_SubsetArray[i].Material.Texture->Load( model.SubsetArray[i].Material.TextureName );
+			m_SubsetArray[i].Material.Texture = new CTexture();
+			m_SubsetArray[i].Material.Texture->Load( model.SubsetArray[i].Material.TextureName );
 
 		}
 	}

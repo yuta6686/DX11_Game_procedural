@@ -127,14 +127,14 @@ float fbm2(in float2 vec, int octave, float2 offset = 0.0)
 }
 
 // フラクタルパーリンノイズ3D
-float fbm3(in float3 vec, int octave)
+float fbm3(in float3 vec, int octave, float3 offset = 0.0)
 {
     float value = 0.0f;
     float amplitude = 1.0f;
     
     for (int i = 0; i < octave; i++)
     {
-        value += amplitude * perlinNoise3(vec);
+        value += amplitude * perlinNoise3(vec + offset);
         vec *= 2.0f;
         amplitude *= 0.5f;
     }

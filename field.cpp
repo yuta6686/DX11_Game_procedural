@@ -8,6 +8,7 @@
 #include "camera.h"
 
 #include "input.h"
+#include"model.h"
 
 
 
@@ -84,20 +85,24 @@ void CField::Init()
 
 
 	m_Texture = new CTexture();
-	m_Texture->Load("data/TEXTURE/field004.tga");
+	m_Texture->Load("data/TEXTURE/field.tga");
 
 
 
 
 	m_Position = XMFLOAT3(0.0f, 0.0f, 0.0f);
 	m_Rotation = XMFLOAT3(0.0f, 0.0f, 0.0f);
-	m_Scale = XMFLOAT3(1.0f, 1.0f, 1.0f);
+	m_Scale = XMFLOAT3(3.0f, 1.0f, 3.0f);
 
 
 	m_Shader = new CShader();
 	m_Shader->Init("shaderFieldVS.cso", "shaderFieldPS.cso");	
 
-	m_HeightOffsetZW.x = 20;
+	m_HeightOffsetZW.x = 50;
+	m_HeightOffsetZW.w = 0.5f;
+
+	_myData.SetMinMax(-100, 100);
+	_myData._parameter = XMFLOAT4(6, 3.4, 0, 0);
 }
 
 
@@ -131,7 +136,7 @@ void CField::Draw()
 	CRenderer::GetDeviceContext()->IASetIndexBuffer(m_IndexBuffer, DXGI_FORMAT_R32_UINT, 0);
 
 	// テクスチャ設定
-	CRenderer::SetTexture(m_Texture, 0);
+	CRenderer::SetTexture(m_Texture, 1);
 
 	// マトリクス設定
 	XMMATRIX world;
@@ -150,10 +155,11 @@ void CField::Draw()
 	m_Shader->SetViewMatrix(&camera->GetViewMatrix());
 	m_Shader->SetProjectionMatrix(&camera->GetProjectionMatrix());
 	m_Shader->SetCameraPosition(&camera->GetPosition());
+	m_Shader->SetParameter(_myData._parameter);
 	m_Shader->SetParameter2(m_HeightOffsetZW);
+	m_Shader->SetLightParameter(CModel::_mydata._lightParameter);
 
 	m_Shader->Set();
-
 
 
 	// プリミティブトポロジ設定
@@ -167,12 +173,17 @@ void CField::Draw()
 void CField::DrawImgui()
 {
 	if (!MyImgui::flags[m_Name])return;
+	
+	
 
-	if (ImGui::TreeNode(m_Name.c_str())) {
-		ImGui::DragFloat("z", &m_HeightOffsetZW.x, 0.05f, -20, 50);
+	if (ImGui::TreeNode(m_Name.c_str())) 
+	{
+		ImGui::DragFloat("octave", &_myData._parameter.x, 0.05, 1, 10);
+		ImGui::DragFloat("TextureColorOffset", &_myData._parameter.y, 0.05, 0, 100);
+
+		ImGui::DragFloat("Height", &m_HeightOffsetZW.x, 0.05f, -20, 100);
 		ImGui::DragFloat("OffsetX", &m_HeightOffsetZW.y, 0.05f, -20, 50);
-		ImGui::DragFloat("OffsetY", &m_HeightOffsetZW.z, 0.05f, -20, 50);
-		//ImGui::DragFloat("fog", &m_HeightOffsetZW.w, 0.001f, 0.0f,0.1f);
+		ImGui::DragFloat("OffsetY", &m_HeightOffsetZW.z, 0.05f, -20, 50);		
 		ImGui::DragFloat("fog", &m_HeightOffsetZW.w, 0.01f, 0.0f, 1.0f);
 		ImGui::TreePop();
 	}

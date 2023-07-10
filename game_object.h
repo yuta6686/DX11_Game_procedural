@@ -15,6 +15,8 @@ protected:
 	XMFLOAT3					m_Rotation;
 	XMFLOAT3					m_Scale;
 
+	std::string					m_Name="Unknown";
+
 public:
 
 	XMFLOAT3 GetPosition(){ return m_Position; }
@@ -24,7 +26,8 @@ public:
 	void SetPosition( XMFLOAT3 Position ){ m_Position = Position; }
 	void SetRotation( XMFLOAT3 Rotation ){ m_Rotation = Rotation; }
 	void SetScale( XMFLOAT3 Scale ){ m_Scale = Scale; }
-
+	void SetName(std::string Name) { m_Name = Name; }
+	std::string GetName() { return m_Name; }
 
 
 public:

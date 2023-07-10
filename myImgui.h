@@ -22,7 +22,10 @@ struct ParameterLabel
 };
 struct ParameterEnableAxis
 {
-	bool x, y, z, w = true;
+	bool x = true;
+	bool y = true;
+	bool z = true;
+	bool w = true;
 };
 class MyImguiData 
 {
@@ -30,8 +33,9 @@ public:
 	float _min = 0.0f;
 	float _max = 1.0f;
 
-	XMFLOAT4 _parameter, _parameter2;
+	XMFLOAT4 _parameter, _parameter2,_lightParameter;
 	ParameterLabel _label,_label2;
+	ParameterLabel _labelLight = { "LightPosX","LightPosY","LightPosZ","LightStrength" };
 	ParameterEnableAxis _eAxis;
 public:
 	void SetMinMax(const float& value);
@@ -40,6 +44,7 @@ public:
 	void SetMyFlag(const std::string& name,const bool& flag = true);
 	void DragFloatParameter(const std::string& name);
 	void DragFloatParameter2(const std::string& name);
+	void DragFloatLightParamter(const std::string& name);
 };
 
 class MyImgui
@@ -51,4 +56,7 @@ public:
 		flags["Water"] = true;
 		flags["Field"] = true;
 	}
+
+	static void ImguiPosition(XMFLOAT3* position, float min = -100, float max = 100);
+	static void ImguiScale( XMFLOAT3* scale, float min = -100, float max = 100);
 };

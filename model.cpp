@@ -16,7 +16,7 @@ void CModel::Init()
 {
 	m_Position = XMFLOAT3(0.0f, 0.0f, 0.0f);
 	m_Rotation = XMFLOAT3(0.0f, 0.0f, 0.0f);
-	m_Scale = XMFLOAT3(50.0f, 50.0f, 50.0f);
+	m_Scale = XMFLOAT3(100.0f, 100.0f, 100.0f);
 
 
 	//Load( "data/MODEL/miku_01.obj" );
@@ -33,11 +33,14 @@ void CModel::Init()
 	m_TextureFur->Load("data/TEXTURE/fur.tga");*/
 
 
+
 	_mydata.SetMyFlag(m_Name, true);
 
 
 
 	_mydata._parameter = { 1.0f,-1.0f,1.0f ,1.0f };
+	_mydata._parameter2 = { 2.5f,1.0f,1.0f ,1.0f };
+	_mydata._lightParameter = { 1.0f,-1.0f,1.0f ,10.0f };
 
 	_mydata.SetMinMax(MyMath::PI);
 
@@ -55,6 +58,8 @@ void CModel::Uninit()
 	m_Shader->Uninit();
 	delete m_Shader;
 
+
+
 	Unload();
 
 }
@@ -63,23 +68,23 @@ void CModel::Uninit()
 void CModel::Update()
 {
 
-	if (CInput::GetKeyPress('A'))
-		m_Position.x -= 0.1f;
-	if (CInput::GetKeyPress('D'))
-		m_Position.x += 0.1f;
-	if (CInput::GetKeyPress('W'))
-		m_Position.z += 0.1f;
-	if (CInput::GetKeyPress('S'))
-		m_Position.z -= 0.1f;
+	//if (CInput::GetKeyPress('A'))
+	//	m_Position.x -= 0.1f;
+	//if (CInput::GetKeyPress('D'))
+	//	m_Position.x += 0.1f;
+	//if (CInput::GetKeyPress('W'))
+	//	m_Position.z += 0.1f;
+	//if (CInput::GetKeyPress('S'))
+	//	m_Position.z -= 0.1f;
 
-	if (CInput::GetKeyPress('Q'))
-		m_Rotation.y -= 0.05f;
-	if (CInput::GetKeyPress('E'))
-		m_Rotation.y += 0.05f;
-	if (CInput::GetKeyPress('R'))
-		m_Rotation.x -= 0.05f;
-	if (CInput::GetKeyPress('F'))
-		m_Rotation.x += 0.05f;
+	//if (CInput::GetKeyPress('Q'))
+	//	m_Rotation.y -= 0.05f;
+	//if (CInput::GetKeyPress('E'))
+	//	m_Rotation.y += 0.05f;
+	//if (CInput::GetKeyPress('R'))
+	//	m_Rotation.x -= 0.05f;
+	//if (CInput::GetKeyPress('F'))
+	//	m_Rotation.x += 0.05f;
 
 	_mydata._parameter.w += 1.0f / 60.0f;
 
@@ -110,12 +115,14 @@ void CModel::Draw()
 
 	m_Shader->SetParameter(_mydata._parameter);
 	m_Shader->SetParameter2(_mydata._parameter2);
+	m_Shader->SetLightParameter(_mydata._lightParameter);
 
 	m_Shader->Set();
 
 
 	//トゥーンテクスチャ
 	//CRenderer::SetTexture(m_TextureFur, 1);
+
 
 
 
@@ -236,7 +243,18 @@ void CModel::DrawShadow()
 
 }
 
+void CModel::DrawImgui()
+{
+	if (!_mydata.GetMyFlag(m_Name))return;
+	if (ImGui::TreeNode(m_Name.c_str()))
+	{
+		_mydata.DragFloatParameter(m_Name + "Param");
+		_mydata.DragFloatParameter2(m_Name + "Param2");
+		_mydata.DragFloatLightParamter(m_Name + "Light");		
 
+		ImGui::TreePop();
+	}
+}
 
 
 
@@ -316,13 +334,7 @@ void CModel::Unload()
 
 }
 
-void CModel::DrawImgui()
-{
-	if (!_mydata.GetMyFlag(m_Name))return;
 
-	_mydata.DragFloatParameter(m_Name);
-	ImGui::Text("w:%.2f", _mydata._parameter.w);
-}
 
 
 
